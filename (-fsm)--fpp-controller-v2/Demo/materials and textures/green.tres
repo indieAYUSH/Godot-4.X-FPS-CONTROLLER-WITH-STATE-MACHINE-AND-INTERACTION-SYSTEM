@@ -1,0 +1,34 @@
+[gd_resource type="StandardMaterial3D" load_steps=5 format=3 uid="uid://cv28b2eouwk3j"]
+
+[ext_resource type="Texture2D" uid="uid://txpxwuwolumj" path="res://Demo/materials and textures/GreyboxTextures/greybox_light_solid.png" id="1_fu0ji"]
+
+[sub_resource type="Gradient" id="Gradient_mlfbv"]
+offsets = PackedFloat32Array(0, 0.760563, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.64448, 0.537141, 0.988141, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fmh8u"]
+noise_type = 4
+seed = 1
+frequency = 0.0122
+fractal_type = 3
+fractal_weighted_strength = 0.08
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lic1r"]
+noise = SubResource("FastNoiseLite_fmh8u")
+color_ramp = SubResource("Gradient_mlfbv")
+seamless = true
+as_normal_map = true
+seamless_blend_skirt = 1.0
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.93408, 0.93408, 0.93408, 1)
+albedo_texture = ExtResource("1_fu0ji")
+albedo_texture_force_srgb = true
+albedo_texture_msdf = true
+normal_scale = 2.62
+normal_texture = SubResource("NoiseTexture2D_lic1r")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
