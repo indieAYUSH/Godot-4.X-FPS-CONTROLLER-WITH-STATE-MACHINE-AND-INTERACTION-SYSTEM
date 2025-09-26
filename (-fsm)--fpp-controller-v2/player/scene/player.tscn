@@ -128,8 +128,10 @@ _data = {
 &"uncrouch": SubResource("Animation_h4jra")
 }
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component")]
 script = ExtResource("1_qvlqn")
+player_statemachine = NodePath("PlayerStateMachine")
+CameraJuice_Component = NodePath("head/CameraControllerComponent/CameraJuice")
 
 [node name="uncrouched_collision_shape" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_mbkfo")
@@ -149,17 +151,21 @@ script = ExtResource("2_8p4p3")
 mouse_controller_component = NodePath("../../Components/MouseControllerComponent")
 Player_controller = NodePath("../..")
 
-[node name="CameraJuice" type="Node3D" parent="head/CameraControllerComponent" node_paths=PackedStringArray("Player")]
+[node name="CameraJuice" type="Node3D" parent="head/CameraControllerComponent" node_paths=PackedStringArray("camera", "Player")]
 script = ExtResource("3_iqofo")
+camera = NodePath("rot_pivot/Camera3D")
 Camera_tilt = true
 Head_bob = true
 Player = NodePath("../../..")
-bob_pitch = 0.015
-bob_roll = 0.008
-bob_up = 0.03
-bob_frequncy = 6.0
+bob_pitch = 0.04
+bob_roll = 0.03
+bob_up = 0.003
+bob_frequncy = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="head/CameraControllerComponent/CameraJuice"]
+[node name="rot_pivot" type="Node3D" parent="head/CameraControllerComponent/CameraJuice"]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot"]
 unique_name_in_owner = true
 
 [node name="obstacle_checker" type="Node3D" parent="head/CameraControllerComponent"]
@@ -206,7 +212,7 @@ metadata/_custom_type_script = "uid://bdb24wwkuvnvt"
 
 [node name="SlideState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("camera")]
 script = ExtResource("10_nfsas")
-camera = NodePath("../../head/CameraControllerComponent/CameraJuice/Camera3D")
+camera = NodePath("../../head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D")
 metadata/_custom_type_script = "uid://bdb24wwkuvnvt"
 
 [node name="Debug_ui" type="CanvasLayer" parent="." node_paths=PackedStringArray("PLayer")]

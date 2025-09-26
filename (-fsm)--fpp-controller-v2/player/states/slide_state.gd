@@ -11,7 +11,7 @@ var sliding_timer
 
 @export_category("camera category")
 @export var camera : Camera3D
-@export var added_camera_fov :float = 20.0
+@export var added_camera_fov :float = 15.0
 @export var current_camera_fov : float = 80.0
 
 
@@ -19,22 +19,23 @@ var sliding_timer
 func enter()->void:
 	sliding_timer = sliding_timer_max
 	Player.crouch()
+	Player.CameraJuice_Component.fov_manager(added_camera_fov)
+	Player.CameraJuice_Component.rot_pivot_manager(5.0)
 
 
 
 func physics_update(delta : float)-> void:
 
 	sliding_timer-= delta
-	camera.fov = lerp(camera.fov , current_camera_fov+added_camera_fov , lerp_Speed*delta)
 	Player.update_gravity(delta)
 	Player.update_movement((sliding_timer+0.1)*sliding_speed , acceleration , deacceleration)
 	if sliding_timer <= 0.0:
-		camera.fov = lerp(camera.fov , current_camera_fov , lerp_Speed*delta)
 		change_state.emit("IdleState")
-	
-	if Input.is_action_just_pressed("jump"):
+	elif Input.is_action_just_pressed("jump"):
 		change_state.emit("JumpState")
 
 
 func exit()-> void:
 	Player.uncrouch()
+	Player.CameraJuice_Component.fov_manager(-added_camera_fov)
+	Player.CameraJuice_Component.rot_pivot_manager(0.0)

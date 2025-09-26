@@ -1,8 +1,13 @@
 class_name CameraJuiceComponent extends Node3D
 
+@export_category("Reffrences")
+@export var camera : Camera3D
+@onready var rot_pivot = %rot_pivot
+
 @export_category("Camera Effects")
 @export var Camera_tilt: bool
 @export var Head_bob : bool
+@export  var camer_fov_changes : bool
 
 
 @export var Player : PlayerController
@@ -21,7 +26,19 @@ class_name CameraJuiceComponent extends Node3D
 
 var _step_timer : float = 0.0
 
+@export_category("FOV Vars")
+var target_fov : float
+@export var base_fov :float = 75.0
+
+var rot_pivot_amount : float = 0.0
+
+func _ready():
+	target_fov = base_fov
+
 func _process(delta):
+	camera_effects_manager(delta)
+
+func camera_effects_manager(delta:float) -> void:
 	var angles  = Vector3.ZERO
 	var offsets = Vector3.ZERO
 	
@@ -37,7 +54,7 @@ func _process(delta):
 	#Headbob Things ===============================================================
 	
 	var speed = Vector2(Player.velocity.x , Player.velocity.z).length()
-	if speed > 0.1 and Player.is_on_floor():
+	if speed > 0.1 and Player.is_on_floor() and Player.player_statemachine.current_state.name != "SlideState":
 		_step_timer += delta*(speed/bob_frequncy)
 		_step_timer = fmod(_step_timer , 1.0)
 	else:
@@ -53,8 +70,17 @@ func _process(delta):
 		
 		var up_delta = bob_sin * speed * bob_up
 		offsets.y += up_delta
-	
+		
 	
 	
 	rotation = angles
 	position = offsets
+	
+	camera.fov = lerp(camera.fov , target_fov , lerp_speed*delta)
+	rot_pivot.rotation.z = lerp(rot_pivot.rotation.z , deg_to_rad(rot_pivot_amount) , lerp_speed*delta)
+
+func fov_manager(amount:float) -> void:
+	target_fov = base_fov + amount
+
+func rot_pivot_manager(amount:float) -> void:
+	rot_pivot_amount = amount

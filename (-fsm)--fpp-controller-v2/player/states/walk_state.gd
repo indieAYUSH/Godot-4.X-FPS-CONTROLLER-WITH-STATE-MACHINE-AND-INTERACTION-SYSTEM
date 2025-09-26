@@ -7,7 +7,6 @@ class_name WalkState extends PlayerMovementState
 
 
 func _update(delta:float):
-	print(Input.get_axis("forward" , "baackward") )
 	if Player.velocity.length() < 0.01 :
 		change_state.emit("IdleState")
 	

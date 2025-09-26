@@ -11,6 +11,11 @@ const JUMP_VELOCITY = 4.5
 @onready var obstacle_checker = %ShapeCast3D
 @onready var player_animation = $PlayerAnimation
 
+@export_category("Refrences")
+@export var player_statemachine : StateMachine
+@export var CameraJuice_Component : CameraJuiceComponent
+
+
 var input_dir
 
 func _ready():
