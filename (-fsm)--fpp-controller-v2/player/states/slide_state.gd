@@ -29,9 +29,13 @@ func physics_update(delta : float)-> void:
 	sliding_timer-= delta
 	Player.update_gravity(delta)
 	Player.update_movement((sliding_timer+0.1)*sliding_speed , acceleration , deacceleration)
+	
 	if sliding_timer <= 0.0:
-		change_state.emit("IdleState")
-	elif Input.is_action_just_pressed("jump"):
+		if Player.input_dir != Vector2.ZERO:
+			change_state.emit("WalkState")
+		else :
+			change_state.emit("IdleState")
+	if Input.is_action_just_pressed("jump"):
 		change_state.emit("JumpState")
 
 

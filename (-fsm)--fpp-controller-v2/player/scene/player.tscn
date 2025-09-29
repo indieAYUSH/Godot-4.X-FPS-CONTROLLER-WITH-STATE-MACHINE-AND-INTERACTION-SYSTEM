@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://5ym40qt2aau8"]
+[gd_scene load_steps=23 format=3 uid="uid://5ym40qt2aau8"]
 
 [ext_resource type="Script" uid="uid://bcqieithuf66l" path="res://player/scripts/player.gd" id="1_qvlqn"]
 [ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://player/scripts/camera_controller_component.gd" id="2_8p4p3"]
@@ -6,12 +6,14 @@
 [ext_resource type="Script" uid="uid://c8jv7ncgkeitl" path="res://player/scripts/camera_juice.gd" id="3_iqofo"]
 [ext_resource type="Script" uid="uid://2ykdhxibejv1" path="res://StateMachine/StateMachine.gd" id="4_gp3q6"]
 [ext_resource type="Script" uid="uid://drihlu2omkt26" path="res://player/states/IdleState.gd" id="5_tblmv"]
+[ext_resource type="Script" uid="uid://c2wa73ft7dn5e" path="res://player/scripts/interraction_ray_cast.gd" id="5_vd5ca"]
 [ext_resource type="Script" uid="uid://lvw0vibdw22k" path="res://player/states/walk_state.gd" id="6_tblmv"]
 [ext_resource type="Script" uid="uid://dbavcwgvqyiyg" path="res://player/states/sprint_state.gd" id="7_263ev"]
 [ext_resource type="Script" uid="uid://b2ooi5fi6jx7j" path="res://Other scripts/UI/debug_ui.gd" id="7_tblmv"]
 [ext_resource type="Script" uid="uid://nr0k8pums4yn" path="res://player/states/crouch_state.gd" id="8_blwvw"]
 [ext_resource type="Script" uid="uid://ddvfv5vhdy10b" path="res://player/states/jump_state.gd" id="9_hu6bb"]
 [ext_resource type="Script" uid="uid://crxjj3fe1x0vl" path="res://player/states/slide_state.gd" id="10_nfsas"]
+[ext_resource type="Script" uid="uid://c86tuupwad5vx" path="res://player/UI/scripts/ui_crosshair.gd" id="13_h4jra"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbkfo"]
 height = 1.7
@@ -168,6 +170,9 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot"]
 unique_name_in_owner = true
 
+[node name="Interraction_Ray_cast" type="RayCast3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D"]
+target_position = Vector3(0, 0, -4)
+
 [node name="obstacle_checker" type="Node3D" parent="head/CameraControllerComponent"]
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="head/CameraControllerComponent/obstacle_checker"]
@@ -183,6 +188,10 @@ debug_shape_custom_color = Color(0, 1, 0, 1)
 script = ExtResource("3_4eyqk")
 mouse_senstivity = 0.003
 camera_controller = NodePath("../../head/CameraControllerComponent")
+
+[node name="PlayerInterractionRay" type="Node" parent="Components" node_paths=PackedStringArray("InteractionRaycast")]
+script = ExtResource("5_vd5ca")
+InteractionRaycast = NodePath("../../head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D/Interraction_Ray_cast")
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("4_gp3q6")
@@ -275,5 +284,47 @@ layout_mode = 2
 libraries = {
 &"": SubResource("AnimationLibrary_h4jra")
 }
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="UICrosshair" type="CenterContainer" parent="UI" node_paths=PackedStringArray("crosshair_lines", "Player")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_h4jra")
+crosshair_lines = [NodePath("top"), NodePath("left"), NodePath("right"), NodePath("bottom")]
+Player = NodePath("../..")
+
+[node name="top" type="Line2D" parent="UI/UICrosshair"]
+points = PackedVector2Array(0, -5, 0, -15)
+width = 3.0
+
+[node name="left" type="Line2D" parent="UI/UICrosshair"]
+points = PackedVector2Array(-5, 0, -15, 0)
+width = 3.0
+
+[node name="right" type="Line2D" parent="UI/UICrosshair"]
+points = PackedVector2Array(5, 0, 15, 0)
+width = 3.0
+
+[node name="bottom" type="Line2D" parent="UI/UICrosshair"]
+points = PackedVector2Array(0, 5, 0, 15)
+width = 3.0
 
 [connection signal="state_changed" from="PlayerStateMachine" to="Debug_ui" method="_on_player_state_machine_state_changed"]

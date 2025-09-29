@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bou00x630601y"]
+[gd_scene load_steps=24 format=3 uid="uid://bou00x630601y"]
 
 [ext_resource type="Material" uid="uid://jm4tiq4lln34" path="res://Demo/materials and textures/black.tres" id="1_p8l25"]
 [ext_resource type="PackedScene" uid="uid://5ym40qt2aau8" path="res://player/scene/player.tscn" id="1_psk1g"]
 [ext_resource type="Texture2D" uid="uid://bpmyo10ciep3v" path="res://Demo/materials and textures/GreyboxTextures/greybox_orange_grid.png" id="3_84e1l"]
 [ext_resource type="Texture2D" uid="uid://c4bxohi7ps6ku" path="res://Demo/materials and textures/GreyboxTextures/greybox_green_grid.png" id="4_kf185"]
 [ext_resource type="Texture2D" uid="uid://c1pr6yvtybith" path="res://Demo/materials and textures/GreyboxTextures/greybox_red_grid.png" id="5_xdb4v"]
+[ext_resource type="Texture2D" uid="uid://cb51kxfmk8qey" path="res://Demo/materials and textures/GreyboxTextures/greybox_blue_solid.png" id="6_kf185"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://InterractionSystem/scripts/InteractionComponent.gd" id="6_xdb4v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_psk1g"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -42,6 +44,48 @@ uv2_world_triplanar = true
 albedo_texture = ExtResource("4_kf185")
 uv1_triplanar = true
 uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdb4v"]
+albedo_texture = ExtResource("4_kf185")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ik3e0"]
+material = SubResource("StandardMaterial3D_xdb4v")
+size = Vector3(1.2, 1.2, 1.2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_shq4a"]
+points = PackedVector3Array(-0.59999996, -0.5999997, -0.5999997, 0.5999723, 0.59999996, 0.59999996, 0.5999723, 0.59999996, -0.59999996, 0.5999723, -0.59999996, 0.59999996, -0.59999996, 0.5999997, 0.5999997, 0.5999723, -0.59999996, -0.59999996, -0.59999996, -0.5999997, 0.5999997, -0.59999996, 0.5999997, -0.5999997)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jipm5"]
+albedo_texture = ExtResource("6_kf185")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_4exgu"]
+material = SubResource("StandardMaterial3D_jipm5")
+size = Vector3(1.2, 1.2, 1.2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4wtxo"]
+points = PackedVector3Array(0.6, 0.6, 0.6, 0.6, 0.6, -0.6, -0.6, 0.6, 0.6, 0.6, -0.6, 0.6, 0.6, -0.6, -0.6, -0.6, 0.6, -0.6, -0.6, -0.6, 0.6, -0.6, -0.6, -0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6kavc"]
+albedo_texture = ExtResource("5_xdb4v")
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_xw4th"]
+material = SubResource("StandardMaterial3D_6kavc")
+size = Vector3(1.2, 1.2, 1.2)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mpuh8"]
+points = PackedVector3Array(-0.59999996, -0.5999997, -0.5999997, 0.5999723, 0.59999996, 0.59999996, 0.5999723, 0.59999996, -0.59999996, 0.5999723, -0.59999996, 0.59999996, -0.59999996, 0.5999997, 0.5999997, 0.5999723, -0.59999996, -0.59999996, -0.59999996, -0.5999997, 0.5999997, -0.59999996, 0.5999997, -0.5999997)
 
 [node name="PrototypingDemo" type="Node3D"]
 
@@ -115,3 +159,51 @@ use_collision = true
 polygon = PackedVector2Array(-3.1031504, -1.6649401, -0.41627455, 1.0281806, 1, 1, 1, 0, -0.098445415, 0.71138453, -2.943182, -1.5647829)
 depth = 2.04
 material = SubResource("StandardMaterial3D_ty24u")
+
+[node name="props_boxes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.462444, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="props_boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.52972794, 0.053916693, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="props_boxes/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0679737, 0)
+mesh = SubResource("BoxMesh_ik3e0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="props_boxes/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0679737, 0)
+shape = SubResource("ConvexPolygonShape3D_shq4a")
+
+[node name="InteractionComponent" type="Node" parent="props_boxes/StaticBody3D"]
+script = ExtResource("6_xdb4v")
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="props_boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.053545, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="props_boxes/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0777043, 0)
+mesh = SubResource("BoxMesh_4exgu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="props_boxes/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0777043, 0)
+shape = SubResource("ConvexPolygonShape3D_4wtxo")
+
+[node name="InteractionComponent" type="Node" parent="props_boxes/StaticBody3D2"]
+script = ExtResource("6_xdb4v")
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="props_boxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8153152, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="props_boxes/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0684639, 0)
+mesh = SubResource("BoxMesh_xw4th")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="props_boxes/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0684639, 0)
+shape = SubResource("ConvexPolygonShape3D_mpuh8")
+
+[node name="InteractionComponent" type="Node" parent="props_boxes/StaticBody3D3"]
+script = ExtResource("6_xdb4v")
+metadata/_custom_type_script = "uid://pdgu0t75jx23"

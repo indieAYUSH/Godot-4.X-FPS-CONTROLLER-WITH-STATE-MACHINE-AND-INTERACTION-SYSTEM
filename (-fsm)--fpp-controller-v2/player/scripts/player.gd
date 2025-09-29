@@ -48,6 +48,7 @@ func _update_rotation(rot_value : Vector3) -> void :
 func update_movement(_speed : float , _acceleration : float , Deacceleration :float ):
 	input_dir = Input.get_vector("left", "right", "forward", "baackward")
 	
+	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = lerp(velocity.x , direction.x * _speed , _acceleration)

@@ -46,7 +46,6 @@ func on_change_state(StateName:String):
 		return
 	
 	if current_state != new_state:
-		print(current_state.name)
 		current_state.exit()
 		new_state.enter()
 		current_state = new_state
