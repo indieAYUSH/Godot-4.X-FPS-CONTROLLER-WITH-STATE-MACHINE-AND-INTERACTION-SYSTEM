@@ -15,6 +15,10 @@ run/main_scene="uid://bou00x630601y"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MessageBus="*res://Other scripts/AutoLoads/Message_BUS.gd"
+
 [input]
 
 forward={

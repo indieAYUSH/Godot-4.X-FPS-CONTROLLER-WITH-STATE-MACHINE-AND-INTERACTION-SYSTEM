@@ -1,0 +1,115 @@
+[gd_scene load_steps=12 format=3 uid="uid://bppp0u74sbhsk"]
+
+[ext_resource type="Material" uid="uid://jm4tiq4lln34" path="res://Demo/materials and textures/black.tres" id="1_thmbe"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://InterractionSystem/scripts/InteractionComponent.gd" id="2_gvebf"]
+[ext_resource type="Script" uid="uid://de4h7qj4u7jy3" path="res://Demo/enviroment_object/scripts/AnimatableDoors.gd" id="2_x2vnr"]
+[ext_resource type="Script" uid="uid://d0bdsxl84aamu" path="res://InterractionSystem/scripts/DoorComponenet.gd" id="3_odrwl"]
+
+[sub_resource type="Animation" id="Animation_um23q"]
+resource_name = "open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.39926067),
+"transitions": PackedFloat32Array(1.5691684, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ln7ar"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dsnai"]
+resource_name = "close"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1.4142138, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707964, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iydeh"]
+_data = {
+&"RESET": SubResource("Animation_ln7ar"),
+&"close": SubResource("Animation_dsnai"),
+&"open": SubResource("Animation_um23q")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_odrwl"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.4, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x2vnr"]
+material = SubResource("StandardMaterial3D_odrwl")
+size = Vector3(2.05, 3, 0.13)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gvebf"]
+size = Vector3(2.05, 3, 0.15)
+
+[node name="Rotating_Doors" type="Node3D"]
+
+[node name="DoorWall" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+use_collision = true
+size = Vector3(7, 4, 0.25)
+material = ExtResource("1_thmbe")
+
+[node name="DoorWay" type="CSGBox3D" parent="DoorWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.48377013, 0)
+operation = 2
+size = Vector3(2.1, 3, 0.25)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -1.0441668, 1.5, 0)
+script = ExtResource("2_x2vnr")
+
+[node name="InteractionComponent" type="Node" parent="AnimatableBody3D"]
+script = ExtResource("2_gvebf")
+input_prompt = "Open Door"
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="DoorComponenet" type="Node" parent="AnimatableBody3D" node_paths=PackedStringArray("Interaction_Component")]
+script = ExtResource("3_odrwl")
+input_prompt_override = "Open Door"
+Interaction_Component = NodePath("../InteractionComponent")
+metadata/_custom_type_script = "uid://d0bdsxl84aamu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody3D"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_iydeh")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0441668, 0, 0)
+mesh = SubResource("BoxMesh_x2vnr")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0441668, 0, 0)
+shape = SubResource("BoxShape3D_gvebf")

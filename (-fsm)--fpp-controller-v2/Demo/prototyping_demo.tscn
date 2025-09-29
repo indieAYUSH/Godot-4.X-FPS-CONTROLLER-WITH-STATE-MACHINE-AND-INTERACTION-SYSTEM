@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bou00x630601y"]
+[gd_scene load_steps=26 format=3 uid="uid://bou00x630601y"]
 
 [ext_resource type="Material" uid="uid://jm4tiq4lln34" path="res://Demo/materials and textures/black.tres" id="1_p8l25"]
 [ext_resource type="PackedScene" uid="uid://5ym40qt2aau8" path="res://player/scene/player.tscn" id="1_psk1g"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://c1pr6yvtybith" path="res://Demo/materials and textures/GreyboxTextures/greybox_red_grid.png" id="5_xdb4v"]
 [ext_resource type="Texture2D" uid="uid://cb51kxfmk8qey" path="res://Demo/materials and textures/GreyboxTextures/greybox_blue_solid.png" id="6_kf185"]
 [ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://InterractionSystem/scripts/InteractionComponent.gd" id="6_xdb4v"]
+[ext_resource type="Texture2D" uid="uid://c3gnyoimc7oui" path="res://Assests/keyboard_e_outline.svg" id="8_ik3e0"]
+[ext_resource type="PackedScene" uid="uid://bppp0u74sbhsk" path="res://Demo/enviroment_object/rotating_doors.tscn" id="9_shq4a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_psk1g"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -154,9 +156,9 @@ size = Vector3(3, 1.7236328, 3)
 material = SubResource("StandardMaterial3D_n6yo8")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Props"]
-transform = Transform3D(1.21, 0, 0, 0, 1.21, 0, 0, 0, 1.21, -6.8398743, 2.5017278, 8.144835)
+transform = Transform3D(1.21, 0, 0, 0, 1.21, 0, 0, 0, 1.21, -6.835419, 2.6168501, 8.118723)
 use_collision = true
-polygon = PackedVector2Array(-3.1031504, -1.6649401, -0.41627455, 1.0281806, 1, 1, 1, 0, -0.098445415, 0.71138453, -2.943182, -1.5647829)
+polygon = PackedVector2Array(-3.1031504, -1.6649401, -0.41627455, 1.0281806, 1.018321, 0.9070444, 1, 0, -0.098445415, 0.71138453, -2.943182, -1.5647829)
 depth = 2.04
 material = SubResource("StandardMaterial3D_ty24u")
 
@@ -176,6 +178,7 @@ shape = SubResource("ConvexPolygonShape3D_shq4a")
 
 [node name="InteractionComponent" type="Node" parent="props_boxes/StaticBody3D"]
 script = ExtResource("6_xdb4v")
+input_prompt = "open box"
 metadata/_custom_type_script = "uid://pdgu0t75jx23"
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="props_boxes"]
@@ -191,6 +194,7 @@ shape = SubResource("ConvexPolygonShape3D_4wtxo")
 
 [node name="InteractionComponent" type="Node" parent="props_boxes/StaticBody3D2"]
 script = ExtResource("6_xdb4v")
+input_prompt = "hehe this is a box"
 metadata/_custom_type_script = "uid://pdgu0t75jx23"
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="props_boxes"]
@@ -206,4 +210,10 @@ shape = SubResource("ConvexPolygonShape3D_mpuh8")
 
 [node name="InteractionComponent" type="Node" parent="props_boxes/StaticBody3D3"]
 script = ExtResource("6_xdb4v")
+input_prompt = "This is a red box"
+input_icon = ExtResource("8_ik3e0")
+override = true
 metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="Rotating_Doors" parent="props_boxes/StaticBody3D3" instance=ExtResource("9_shq4a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.8363686, 0.47684002, 13.505562)

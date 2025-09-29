@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://5ym40qt2aau8"]
+[gd_scene load_steps=27 format=3 uid="uid://5ym40qt2aau8"]
 
 [ext_resource type="Script" uid="uid://bcqieithuf66l" path="res://player/scripts/player.gd" id="1_qvlqn"]
 [ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://player/scripts/camera_controller_component.gd" id="2_8p4p3"]
@@ -14,6 +14,9 @@
 [ext_resource type="Script" uid="uid://ddvfv5vhdy10b" path="res://player/states/jump_state.gd" id="9_hu6bb"]
 [ext_resource type="Script" uid="uid://crxjj3fe1x0vl" path="res://player/states/slide_state.gd" id="10_nfsas"]
 [ext_resource type="Script" uid="uid://c86tuupwad5vx" path="res://player/UI/scripts/ui_crosshair.gd" id="13_h4jra"]
+[ext_resource type="Script" uid="uid://5m01qnp13x5q" path="res://Other scripts/UI/context_component.gd" id="15_gn08s"]
+[ext_resource type="Texture2D" uid="uid://c2p4g2rmg3711" path="res://Assests/keyboard_e.svg" id="16_v58eg"]
+[ext_resource type="FontFile" uid="uid://3op67rxtj0f6" path="res://Assests/roboto/Roboto-Black.ttf" id="17_xkm3v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbkfo"]
 height = 1.7
@@ -130,6 +133,9 @@ _data = {
 &"uncrouch": SubResource("Animation_h4jra")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_xsu4s"]
+font = ExtResource("17_xkm3v")
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component")]
 script = ExtResource("1_qvlqn")
 player_statemachine = NodePath("PlayerStateMachine")
@@ -171,7 +177,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="Interraction_Ray_cast" type="RayCast3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D"]
-target_position = Vector3(0, 0, -4)
+target_position = Vector3(0, 0, -3)
 
 [node name="obstacle_checker" type="Node3D" parent="head/CameraControllerComponent"]
 
@@ -189,9 +195,9 @@ script = ExtResource("3_4eyqk")
 mouse_senstivity = 0.003
 camera_controller = NodePath("../../head/CameraControllerComponent")
 
-[node name="PlayerInterractionRay" type="Node" parent="Components" node_paths=PackedStringArray("InteractionRaycast")]
+[node name="PlayerInterractionRay" type="Node" parent="Components" node_paths=PackedStringArray("interaction_raycast")]
 script = ExtResource("5_vd5ca")
-InteractionRaycast = NodePath("../../head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D/Interraction_Ray_cast")
+interaction_raycast = NodePath("../../head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D/Interraction_Ray_cast")
 
 [node name="PlayerStateMachine" type="Node" parent="." node_paths=PackedStringArray("current_state")]
 script = ExtResource("4_gp3q6")
@@ -326,5 +332,36 @@ width = 3.0
 [node name="bottom" type="Line2D" parent="UI/UICrosshair"]
 points = PackedVector2Array(0, 5, 0, 15)
 width = 3.0
+
+[node name="ContextComponent" type="CenterContainer" parent="UI" node_paths=PackedStringArray("input_promt_icon", "input_prompt")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.010416667
+anchor_top = 0.052469134
+anchor_right = 1.0130209
+anchor_bottom = 1.029321
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_gn08s")
+input_promt_icon = NodePath("HBoxContainer/InputTex")
+input_prompt = NodePath("HBoxContainer/InputPrompt")
+default_icon = ExtResource("16_v58eg")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ContextComponent"]
+layout_mode = 2
+
+[node name="InputTex" type="TextureRect" parent="UI/ContextComponent/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("16_v58eg")
+expand_mode = 1
+
+[node name="InputPrompt" type="Label" parent="UI/ContextComponent/HBoxContainer"]
+layout_mode = 2
+text = "THIS IA A BOX HEEH"
+label_settings = SubResource("LabelSettings_xsu4s")
+horizontal_alignment = 2
 
 [connection signal="state_changed" from="PlayerStateMachine" to="Debug_ui" method="_on_player_state_machine_state_changed"]
