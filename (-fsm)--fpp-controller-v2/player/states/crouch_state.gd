@@ -22,6 +22,9 @@ func enter()->void:
 func _update(delta : float) -> void:
 	if not Input.is_action_pressed("crouch") and not crouch_shape_cast.is_colliding():
 		change_state.emit("IdleState")
+	
+	if Player.velocity.y < -3.0 :
+		change_state.emit("FallingState")
 
 
 

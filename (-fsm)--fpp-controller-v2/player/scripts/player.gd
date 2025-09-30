@@ -15,13 +15,19 @@ const JUMP_VELOCITY = 4.5
 @export var player_statemachine : StateMachine
 @export var CameraJuice_Component : CameraJuiceComponent
 
+@export_category("Movement Bools")
+@export var can_dash : bool = true
+
+
 
 var input_dir
+@onready var camera_3d = %Camera3D
 
 func _ready():
 	obstacle_checker.add_exception(self)
 	
 func _physics_process(delta):
+	
 	# Add the gravity.
 	
 
@@ -47,6 +53,7 @@ func _update_rotation(rot_value : Vector3) -> void :
 
 func update_movement(_speed : float , _acceleration : float , Deacceleration :float ):
 	input_dir = Input.get_vector("left", "right", "forward", "baackward")
+	
 	
 	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
@@ -75,3 +82,12 @@ func uncrouch():
 	crouched_collsion_shape.disabled = true
 	uncrouched_collision_shape.disabled = false
 	player_animation.play("uncrouch")
+
+func dash(direction: Vector3, speed: float) -> void:
+	if direction.length() == 0:
+		return
+	var _direction = direction.normalized()
+	_direction.y = 0  
+	velocity = _direction * speed  
+
+	

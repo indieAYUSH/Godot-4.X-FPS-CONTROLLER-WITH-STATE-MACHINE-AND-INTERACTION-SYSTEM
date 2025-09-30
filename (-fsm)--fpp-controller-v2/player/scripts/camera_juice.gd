@@ -31,6 +31,8 @@ var target_fov : float
 @export var base_fov :float = 75.0
 
 var rot_pivot_amount : float = 0.0
+var rot_pivot_x_rot_amount : float = 0.0
+
 
 func _ready():
 	target_fov = base_fov
@@ -38,11 +40,13 @@ func _ready():
 func _process(delta):
 	camera_effects_manager(delta)
 
+
 func camera_effects_manager(delta:float) -> void:
 	var angles  = Vector3.ZERO
 	var offsets = Vector3.ZERO
 	
 	var velocity = Player.velocity.length()
+	
 	
 	#=======================CAMERA TILT things =================================================#
 	if Player.velocity.length() > 0.01 and Camera_tilt:
@@ -54,14 +58,14 @@ func camera_effects_manager(delta:float) -> void:
 	#Headbob Things ===============================================================
 	
 	var speed = Vector2(Player.velocity.x , Player.velocity.z).length()
-	if speed > 0.1 and Player.is_on_floor() and Player.player_statemachine.current_state.name != "SlideState":
+	if speed > 0.1 and Player.is_on_floor()  :
 		_step_timer += delta*(speed/bob_frequncy)
 		_step_timer = fmod(_step_timer , 1.0)
 	else:
 		_step_timer = 0.0
 	var bob_sin = sin(_step_timer* 2.0 * PI) *0.5
 	
-	if Head_bob:
+	if Head_bob and _can_headbob():
 		var pitch_delta = bob_sin * deg_to_rad(bob_pitch) * speed
 		angles.x -= pitch_delta
 		
@@ -77,10 +81,20 @@ func camera_effects_manager(delta:float) -> void:
 	position = offsets
 	
 	camera.fov = lerp(camera.fov , target_fov , lerp_speed*delta)
+	
+	#=================Rotation pivot settings================#
 	rot_pivot.rotation.z = lerp(rot_pivot.rotation.z , deg_to_rad(rot_pivot_amount) , lerp_speed*delta)
+	rot_pivot.rotation.x = lerp(rot_pivot.rotation.x , deg_to_rad(rot_pivot_x_rot_amount) , lerp_speed*delta)
+	rot_pivot.rotation.x = clamp(rot_pivot.rotation.x , deg_to_rad(0.0) , deg_to_rad(15.0))
+
 
 func fov_manager(amount:float) -> void:
 	target_fov = base_fov + amount
 
 func rot_pivot_manager(amount:float) -> void:
 	rot_pivot_amount = amount
+
+func _can_headbob() -> bool:
+	var state_name = Player.player_statemachine.current_state.name
+	# Headbob is allowed if the player is NOT sliding or dashing
+	return state_name != "SlideState" and state_name != "DashState"

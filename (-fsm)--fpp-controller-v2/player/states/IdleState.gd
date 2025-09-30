@@ -14,6 +14,12 @@ func _update(delta):
 	
 	if Input.is_action_just_pressed("jump") and Player.is_on_floor():
 		change_state.emit("JumpState")
+	
+	if Player.velocity.y < -3.0 :
+		change_state.emit("FallingState")
+	
+	if  Input.is_action_just_pressed("Dash") and Player.can_dash :
+		change_state.emit("DashState")
 
 func physics_update(delta : float)-> void:
 	Player.update_gravity(delta)

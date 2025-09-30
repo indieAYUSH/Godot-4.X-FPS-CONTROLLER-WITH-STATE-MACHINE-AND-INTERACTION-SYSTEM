@@ -10,8 +10,15 @@ func enter()->void:
 	Player.velocity.y += jump_force
 
 func _update(delta : float) -> void:
+	
+	if Player.velocity.y < -3.0 :
+		change_state.emit("FallingState")
+	
 	if Player.is_on_floor():
 		change_state.emit("IdleState")
+	
+	if  Input.is_action_just_pressed("Dash") and Player.can_dash :
+		change_state.emit("DashState")
 
 func physics_update(delta : float)-> void:
 	Player.update_gravity(delta)
