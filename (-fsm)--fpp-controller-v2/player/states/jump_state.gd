@@ -4,7 +4,7 @@ class_name JumpState  extends PlayerMovementState
 @export var speed : float = 6.0
 @export var acceleration : float = 0.15
 @export var deacceleration : float  = 0.25
-@export var InputMultiplier : float = 0.65
+@export var InputMultiplier : float = 0.85
 
 func enter()->void:
 	Player.velocity.y += jump_force

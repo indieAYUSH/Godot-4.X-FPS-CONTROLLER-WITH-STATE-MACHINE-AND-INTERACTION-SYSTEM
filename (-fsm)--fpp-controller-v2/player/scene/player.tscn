@@ -1,12 +1,12 @@
-[gd_scene load_steps=27 format=3 uid="uid://5ym40qt2aau8"]
+[gd_scene load_steps=28 format=3 uid="uid://5ym40qt2aau8"]
 
 [ext_resource type="Script" uid="uid://bcqieithuf66l" path="res://player/scripts/player.gd" id="1_qvlqn"]
-[ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://player/scripts/camera_controller_component.gd" id="2_8p4p3"]
-[ext_resource type="Script" uid="uid://bmpd60tvtu81a" path="res://player/scripts/mouse_controller_component.gd" id="3_4eyqk"]
+[ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://player/scripts/Components/camera_controller_component.gd" id="2_8p4p3"]
+[ext_resource type="Script" uid="uid://bmpd60tvtu81a" path="res://player/scripts/Components/mouse_controller_component.gd" id="3_4eyqk"]
 [ext_resource type="Script" uid="uid://c8jv7ncgkeitl" path="res://player/scripts/camera_juice.gd" id="3_iqofo"]
 [ext_resource type="Script" uid="uid://2ykdhxibejv1" path="res://StateMachine/StateMachine.gd" id="4_gp3q6"]
 [ext_resource type="Script" uid="uid://drihlu2omkt26" path="res://player/states/IdleState.gd" id="5_tblmv"]
-[ext_resource type="Script" uid="uid://c2wa73ft7dn5e" path="res://player/scripts/interraction_ray_cast.gd" id="5_vd5ca"]
+[ext_resource type="Script" uid="uid://c2wa73ft7dn5e" path="res://player/scripts/Components/interraction_ray_cast.gd" id="5_vd5ca"]
 [ext_resource type="Script" uid="uid://lvw0vibdw22k" path="res://player/states/walk_state.gd" id="6_tblmv"]
 [ext_resource type="Script" uid="uid://dbavcwgvqyiyg" path="res://player/states/sprint_state.gd" id="7_263ev"]
 [ext_resource type="Script" uid="uid://b2ooi5fi6jx7j" path="res://Other scripts/UI/debug_ui.gd" id="7_tblmv"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://ddvfv5vhdy10b" path="res://player/states/jump_state.gd" id="9_hu6bb"]
 [ext_resource type="Script" uid="uid://crxjj3fe1x0vl" path="res://player/states/slide_state.gd" id="10_nfsas"]
 [ext_resource type="Script" uid="uid://c86tuupwad5vx" path="res://player/UI/scripts/ui_crosshair.gd" id="13_h4jra"]
+[ext_resource type="Script" uid="uid://bdb24wwkuvnvt" path="res://player/states/PlayerMovementState.gd" id="13_xsu4s"]
 [ext_resource type="Script" uid="uid://5m01qnp13x5q" path="res://Other scripts/UI/context_component.gd" id="15_gn08s"]
 [ext_resource type="Texture2D" uid="uid://c2p4g2rmg3711" path="res://Assests/keyboard_e.svg" id="16_v58eg"]
 [ext_resource type="FontFile" uid="uid://3op67rxtj0f6" path="res://Assests/roboto/Roboto-Black.ttf" id="17_xkm3v"]
@@ -228,6 +229,10 @@ metadata/_custom_type_script = "uid://bdb24wwkuvnvt"
 [node name="SlideState" type="Node" parent="PlayerStateMachine" node_paths=PackedStringArray("camera")]
 script = ExtResource("10_nfsas")
 camera = NodePath("../../head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D")
+metadata/_custom_type_script = "uid://bdb24wwkuvnvt"
+
+[node name="FallingState" type="Node" parent="PlayerStateMachine"]
+script = ExtResource("13_xsu4s")
 metadata/_custom_type_script = "uid://bdb24wwkuvnvt"
 
 [node name="Debug_ui" type="CanvasLayer" parent="." node_paths=PackedStringArray("PLayer")]

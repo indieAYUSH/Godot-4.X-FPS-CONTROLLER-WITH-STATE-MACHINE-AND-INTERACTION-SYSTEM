@@ -5,22 +5,6 @@
 [ext_resource type="Script" uid="uid://de4h7qj4u7jy3" path="res://Demo/enviroment_object/scripts/AnimatableDoors.gd" id="2_x2vnr"]
 [ext_resource type="Script" uid="uid://d0bdsxl84aamu" path="res://InterractionSystem/scripts/DoorComponenet.gd" id="3_odrwl"]
 
-[sub_resource type="Animation" id="Animation_um23q"]
-resource_name = "open"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatableBody3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.39926067),
-"transitions": PackedFloat32Array(1.5691684, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_ln7ar"]
 length = 0.001
 tracks/0/type = "value"
@@ -50,6 +34,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1.4142138, 1),
 "update": 0,
 "values": [Vector3(0, 1.5707964, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_um23q"]
+resource_name = "open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatableBody3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.39926067),
+"transitions": PackedFloat32Array(1.5691684, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_iydeh"]

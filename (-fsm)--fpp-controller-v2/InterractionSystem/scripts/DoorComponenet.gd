@@ -30,6 +30,7 @@ func door_func()->void:
 			is_open = true
 	if  Interaction_Component:
 		Interaction_Component.input_prompt = input_prompt_override
+		MessageBus.UpdateContextMenu.emit(Interaction_Component.override ,Interaction_Component.input_icon , Interaction_Component.input_prompt)
 
 
 	

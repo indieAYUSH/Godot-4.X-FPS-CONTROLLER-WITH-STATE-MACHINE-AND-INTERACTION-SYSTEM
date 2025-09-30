@@ -3,7 +3,7 @@ class_name SprintState   extends PlayerMovementState
 @export_category("Movement vars")
 @export var speed : float = 11.0
 @export var acceleration : float = 0.15
-@export var deacceleration : float  = 0.25
+@export var deacceleration : float  = 0.3
 @export var fov_change : float = 8.0
 
 
@@ -20,7 +20,7 @@ func physics_update(delta : float)-> void:
 	
 
 func _update(delta : float) -> void:
-	if not Input.is_action_pressed("sprint"):
+	if not Input.is_action_pressed("sprint") or Player.input_dir == Vector2.ZERO:
 		change_state.emit("WalkState")
 		
 	if Input.is_action_just_pressed("jump") and Player.is_on_floor():

@@ -3,7 +3,7 @@ class_name  CrouchState  extends PlayerMovementState
 @export_category("Movement vars")
 @export var speed : float = 4.5
 @export var acceleration : float = 0.15
-@export var deacceleration : float  = 0.25
+@export var deacceleration : float  = 0.3
 
 @export var toggle_crouch : bool
 

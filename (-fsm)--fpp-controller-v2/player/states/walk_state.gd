@@ -3,7 +3,7 @@ class_name WalkState extends PlayerMovementState
 @export_category("Movement vars")
 @export var speed : float = 7.5
 @export var acceleration : float = 0.15
-@export var deacceleration : float  = 0.25
+@export var deacceleration : float  = 0.3
 
 
 func _update(delta:float):
