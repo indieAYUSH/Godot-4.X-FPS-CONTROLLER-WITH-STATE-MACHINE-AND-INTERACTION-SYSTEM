@@ -8,6 +8,7 @@ class_name JumpState  extends PlayerMovementState
 
 func enter()->void:
 	Player.velocity.y += jump_force
+	PlayerAnimation.play("jump")
 
 func _update(delta : float) -> void:
 	
@@ -23,3 +24,6 @@ func _update(delta : float) -> void:
 func physics_update(delta : float)-> void:
 	Player.update_gravity(delta)
 	Player.update_movement(speed*InputMultiplier , acceleration , deacceleration)
+
+func exit()-> void:
+	PlayerAnimation.play("land")

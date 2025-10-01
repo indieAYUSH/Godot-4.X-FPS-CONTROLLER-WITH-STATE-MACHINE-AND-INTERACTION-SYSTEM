@@ -26,6 +26,7 @@ func _update(delta : float) -> void:
 
 	if Player.is_on_floor():
 		change_state.emit("IdleState")
+		PlayerAnimation.play("land")
 
 func exit()-> void:
 	Player.CameraJuice_Component.rot_pivot_x_rot_amount = 0.0
