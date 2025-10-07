@@ -32,7 +32,7 @@ func not_in_range():
 	MessageBus.ResetContextMenu.emit()
 
 func on_interacted():
-	print("interacted")
+	pass
 
 
 

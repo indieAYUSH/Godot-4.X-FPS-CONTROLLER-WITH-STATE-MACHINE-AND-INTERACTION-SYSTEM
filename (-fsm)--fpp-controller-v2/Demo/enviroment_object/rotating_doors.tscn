@@ -84,9 +84,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.48377013, 0)
 operation = 2
 size = Vector3(2.1, 3, 0.25)
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." node_paths=PackedStringArray("doorcomponent")]
 transform = Transform3D(1.0000001, 0, 0, 0, 1, 0, 0, 0, 1.0000001, -1.0441668, 1.5, 0)
 script = ExtResource("2_x2vnr")
+doorcomponent = NodePath("DoorComponenet")
 
 [node name="InteractionComponent" type="Node" parent="AnimatableBody3D"]
 script = ExtResource("2_gvebf")

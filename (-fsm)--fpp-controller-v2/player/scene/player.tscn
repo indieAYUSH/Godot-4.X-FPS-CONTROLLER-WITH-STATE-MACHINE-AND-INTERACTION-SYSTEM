@@ -20,12 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://c2p4g2rmg3711" path="res://Assests/keyboard_e.svg" id="16_v58eg"]
 [ext_resource type="FontFile" uid="uid://3op67rxtj0f6" path="res://Assests/roboto/Roboto-Black.ttf" id="17_xkm3v"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbkfo"]
-height = 1.7
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qvlqn"]
-height = 1.1
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_hu6bb"]
 
 [sub_resource type="Animation" id="Animation_iqofo"]
@@ -107,50 +101,6 @@ tracks/1/keys = {
 "values": [Vector3(0, -0.35367805, 0), Vector3(0, -0.14959788, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_hu6bb"]
-resource_name = "standing"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("head/CameraControllerComponent:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_h4jra"]
-resource_name = "uncrouch"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("head/CameraControllerComponent:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.5, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("head/CameraControllerComponent/obstacle_checker/ShapeCast3D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.0815711, 0), Vector3(0, -0.35367805, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_w2vqi"]
 resource_name = "jump"
 length = 0.3
@@ -207,6 +157,50 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0.1, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hu6bb"]
+resource_name = "standing"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/CameraControllerComponent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_h4jra"]
+resource_name = "uncrouch"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/CameraControllerComponent:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.5, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("head/CameraControllerComponent/obstacle_checker/ShapeCast3D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.0815711, 0), Vector3(0, -0.35367805, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h4jra"]
 _data = {
 &"RESET": SubResource("Animation_iqofo"),
@@ -220,18 +214,16 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_xsu4s"]
 font = ExtResource("17_xkm3v")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbkfo"]
+height = 1.7
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qvlqn"]
+height = 1.1
+
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component")]
 script = ExtResource("1_qvlqn")
 player_statemachine = NodePath("PlayerStateMachine")
 CameraJuice_Component = NodePath("head/CameraControllerComponent/CameraJuice")
-
-[node name="uncrouched_collision_shape" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_mbkfo")
-
-[node name="crouched_collsion_shape" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2991699, 0)
-shape = SubResource("CapsuleShape3D_qvlqn")
-disabled = true
 
 [node name="head" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -471,6 +463,14 @@ horizontal_alignment = 2
 [node name="TimersHolderComponent" type="Node3D" parent="."]
 
 [node name="DashCoolDown" type="Timer" parent="TimersHolderComponent"]
+
+[node name="uncrouched_collision_shape" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_mbkfo")
+
+[node name="crouched_collsion_shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2991699, 0)
+shape = SubResource("CapsuleShape3D_qvlqn")
+disabled = true
 
 [connection signal="state_changed" from="PlayerStateMachine" to="Debug_ui" method="_on_player_state_machine_state_changed"]
 [connection signal="timeout" from="TimersHolderComponent/DashCoolDown" to="PlayerStateMachine/DashState" method="_on_dash_cool_down_timeout"]

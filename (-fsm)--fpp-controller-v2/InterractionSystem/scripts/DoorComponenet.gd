@@ -5,6 +5,7 @@ extends Node
 @export var locked : bool
 @export var Interaction_Component : InteractionComponent
 
+
 var parent
 var is_open : bool
 
@@ -19,13 +20,10 @@ func door_func()->void:
 	if !locked:
 		if is_open:
 			parent.close_door()
-			print("closed")
 			input_prompt_override = "Open Door"
-			
 			is_open = false
 		else:
 			parent.open_door()
-			print("opened")
 			input_prompt_override = "Close Door"
 			is_open = true
 	if  Interaction_Component:

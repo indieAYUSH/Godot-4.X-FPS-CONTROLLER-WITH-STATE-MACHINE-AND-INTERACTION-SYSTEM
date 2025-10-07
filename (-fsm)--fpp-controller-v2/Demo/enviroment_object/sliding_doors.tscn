@@ -1,37 +1,143 @@
-[gd_scene load_steps=5 format=3 uid="uid://byb78iggbxjwv"]
+[gd_scene load_steps=12 format=3 uid="uid://byb78iggbxjwv"]
 
-[ext_resource type="Material" uid="uid://jm4tiq4lln34" path="res://Demo/materials and textures/black.tres" id="1_tnr33"]
+[ext_resource type="PackedScene" uid="uid://bmt3rgiwwe4ea" path="res://Demo/enviroment_object/door_wall.tscn" id="1_kdmnj"]
+[ext_resource type="Script" uid="uid://de4h7qj4u7jy3" path="res://Demo/enviroment_object/scripts/AnimatableDoors.gd" id="2_kdmnj"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://InterractionSystem/scripts/InteractionComponent.gd" id="3_y7mby"]
+[ext_resource type="Script" uid="uid://d0bdsxl84aamu" path="res://InterractionSystem/scripts/DoorComponenet.gd" id="4_7liqy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xoeue"]
-size = Vector3(2.1, 3, 0.25)
+size = Vector3(2.1, 3, 0.12)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgvf5"]
+[sub_resource type="Animation" id="Animation_rwa2i"]
+resource_name = "open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0), Vector3(0, -1.411, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.29053715),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_0yftb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kig0k"]
+resource_name = "close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1.411, 0), Vector3(0, 1.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j1o0c"]
+_data = {
+&"RESET": SubResource("Animation_0yftb"),
+&"close": SubResource("Animation_kig0k"),
+&"open": SubResource("Animation_rwa2i")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdmnj"]
 diffuse_mode = 3
 specular_mode = 1
-albedo_color = Color(1, 0.58431375, 0, 1)
+albedo_color = Color(1, 0.7254902, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_kdmnj"]
-material = SubResource("StandardMaterial3D_vgvf5")
-size = Vector3(2.05, 3, 0.23)
+material = SubResource("StandardMaterial3D_kdmnj")
+size = Vector3(2.05, 3, 0.105)
 
 [node name="SlidingDoors" type="Node3D"]
 
-[node name="DoorWall" type="CSGBox3D" parent="."]
+[node name="DoorWall" parent="." instance=ExtResource("1_kdmnj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-use_collision = true
-size = Vector3(7, 4, 0.25)
-material = ExtResource("1_tnr33")
 
-[node name="DoorWay" type="CSGBox3D" parent="DoorWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.47126913, 0)
-operation = 2
-size = Vector3(2.1, 3, 0.25)
-
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." node_paths=PackedStringArray("doorcomponent")]
+script = ExtResource("2_kdmnj")
+doorcomponent = NodePath("DoorComponent")
+Automatic_Closing = true
+metadata/_custom_type_script = "uid://de4h7qj4u7jy3"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("BoxShape3D_xoeue")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D/CollisionShape3D"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableBody3D"]
+libraries = {
+&"": SubResource("AnimationLibrary_j1o0c")
+}
+
+[node name="InteractionComponent" type="Node" parent="AnimatableBody3D"]
+script = ExtResource("3_y7mby")
+input_prompt = "Open Door"
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="DoorComponent" type="Node" parent="AnimatableBody3D"]
+script = ExtResource("4_7liqy")
+input_prompt_override = "open"
+metadata/_custom_type_script = "uid://d0bdsxl84aamu"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("BoxMesh_kdmnj")
+skeleton = NodePath("../CollisionShape3D")
