@@ -1,0 +1,121 @@
+[gd_scene load_steps=13 format=3 uid="uid://dyci3vj4srr0l"]
+
+[ext_resource type="Script" uid="uid://de4h7qj4u7jy3" path="res://Demo/enviroment_object/scripts/AnimatableDoors.gd" id="1_i1ibe"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://InterractionSystem/scripts/InteractionComponent.gd" id="2_i0dpo"]
+[ext_resource type="Script" uid="uid://d0bdsxl84aamu" path="res://InterractionSystem/scripts/DoorComponenet.gd" id="3_v5sqt"]
+[ext_resource type="PackedScene" uid="uid://bmt3rgiwwe4ea" path="res://Demo/enviroment_object/door_wall.tscn" id="4_vuleh"]
+
+[sub_resource type="Animation" id="Animation_i1ibe"]
+resource_name = "open_1"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i0dpo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v5sqt"]
+resource_name = "open_2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vuleh"]
+resource_name = "close_2"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16666667),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ji0i7"]
+_data = {
+&"RESET": SubResource("Animation_i0dpo"),
+&"close_2": SubResource("Animation_vuleh"),
+&"open_1": SubResource("Animation_i1ibe"),
+&"open_2": SubResource("Animation_v5sqt")
+}
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ji0i7"]
+points = PackedVector3Array(-1.025, -1.5, -0.065, -1.025, -1.5, 0.065, -1.025, 1.5, -0.065, 1.025, -1.5, -0.065, 1.025, -1.5, 0.065, -1.025, 1.5, 0.065, 1.025, 1.5, -0.065, 1.025, 1.5, 0.065)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cj436"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.2784314, 0, 1)
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_cj436"]
+material = SubResource("StandardMaterial3D_cj436")
+size = Vector3(2.05, 3, 0.13)
+
+[node name="Dual_Way_Door" type="Node3D"]
+
+[node name="AnimatableDoors" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1308774, 1.3748157, 0)
+script = ExtResource("1_i1ibe")
+metadata/_custom_type_script = "uid://de4h7qj4u7jy3"
+
+[node name="InteractionComponent" type="Node" parent="AnimatableDoors"]
+script = ExtResource("2_i0dpo")
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="DoorComponent" type="Node" parent="AnimatableDoors"]
+script = ExtResource("3_v5sqt")
+metadata/_custom_type_script = "uid://d0bdsxl84aamu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatableDoors"]
+libraries = {
+&"": SubResource("AnimationLibrary_ji0i7")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableDoors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1308774, 0.1251843, 0)
+shape = SubResource("ConvexPolygonShape3D_ji0i7")
+
+[node name="Door" type="MeshInstance3D" parent="AnimatableDoors"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1308774, 0.1251843, 0)
+mesh = SubResource("BoxMesh_cj436")
+
+[node name="DoorWall" parent="." instance=ExtResource("4_vuleh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
