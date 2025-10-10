@@ -5,7 +5,6 @@ extends Node
 @export var locked : bool
 @export var Interaction_Component : InteractionComponent
 
-
 var parent
 var is_open : bool
 
@@ -14,9 +13,6 @@ func _ready():
 	parent.connect("interacted" , door_func )
 
 func door_func()->void:
-	if locked:
-		pass
-	
 	if !locked:
 		if is_open:
 			parent.close_door()
@@ -29,6 +25,3 @@ func door_func()->void:
 	if  Interaction_Component:
 		Interaction_Component.input_prompt = input_prompt_override
 		MessageBus.UpdateContextMenu.emit(Interaction_Component.override ,Interaction_Component.input_icon , Interaction_Component.input_prompt)
-
-
-	

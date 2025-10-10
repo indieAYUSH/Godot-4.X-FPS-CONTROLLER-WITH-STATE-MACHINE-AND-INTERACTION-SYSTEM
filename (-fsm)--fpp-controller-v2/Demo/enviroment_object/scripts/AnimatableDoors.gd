@@ -14,6 +14,9 @@ extends AnimatableBody3D
 @export var automatic_door_wait_time : float = 3.0
 @export var Automatic_Closing : bool
 
+
+
+
 func _ready():
 	get_animation_player()
 	DoorAnimationPlayer.animation_finished.connect(door_animation_finished)
