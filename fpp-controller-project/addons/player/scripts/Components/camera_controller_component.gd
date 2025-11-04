@@ -19,6 +19,8 @@ var _rotation : Vector3
 
 
 func _update_rotation(input:Vector2)-> void :
+	if Player_controller.freezed:
+		return
 	_rotation.x += input.y
 	_rotation.y += input.x
 	
@@ -34,7 +36,3 @@ func _update_rotation(input:Vector2)-> void :
 	transform.basis = Basis.from_euler(camera_rotation)
 	Player_controller._update_rotation(player_rotation)
 	
-
-func update_crouch_hieght(delta : float , direction: int) -> void:
-	if position.y >= crouch_offset and position.y <= Default_Hieght:
-		position.y = clampf(position.y + (crouch_speed*direction)*delta , crouch_offset , Default_Hieght)

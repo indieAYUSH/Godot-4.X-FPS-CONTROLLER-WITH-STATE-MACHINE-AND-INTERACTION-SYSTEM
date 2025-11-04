@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpmyo10ciep3v"
-path.s3tc="res://.godot/imported/greybox_orange_grid.png-5981b89e801c6d350fb900b139b3516f.s3tc.ctex"
+path.s3tc="res://.godot/imported/greybox_orange_grid.png-8aed34b0d877b51bd81d851c8f165cd3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Demo/materials and textures/GreyboxTextures/greybox_orange_grid.png"
-dest_files=["res://.godot/imported/greybox_orange_grid.png-5981b89e801c6d350fb900b139b3516f.s3tc.ctex"]
+source_file="res://addons/Demo/materials and textures/GreyboxTextures/greybox_orange_grid.png"
+dest_files=["res://.godot/imported/greybox_orange_grid.png-8aed34b0d877b51bd81d851c8f165cd3.s3tc.ctex"]
 
 [params]
 

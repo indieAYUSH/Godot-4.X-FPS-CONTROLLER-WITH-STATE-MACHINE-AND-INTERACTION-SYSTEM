@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-MessageBus="*res://Other scripts/AutoLoads/Message_BUS.gd"
-Global="*res://Other scripts/AutoLoads/Global.gd"
+MessageBus="*res://addons/Other scripts/AutoLoads/Message_BUS.gd"
+Global="*res://addons/Other scripts/AutoLoads/Global.gd"
 
 [input]
 

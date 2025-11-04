@@ -14,6 +14,7 @@ const JUMP_VELOCITY = 4.5
 @export_category("Component Refrences")
 @export var player_statemachine : StateMachine
 @export var CameraJuice_Component : CameraJuiceComponent
+@export var state_ref : State
 
 @export_category("Movement Bools")
 @export var can_dash : bool = true
@@ -21,23 +22,17 @@ const JUMP_VELOCITY = 4.5
 
 
 var input_dir
+var freezed : bool = false
 @onready var camera_3d = %Camera3D
+
+#Signals
+signal unfreezeplayer
 
 func _ready():
 	obstacle_checker.add_exception(self)
 	Global.Player = self
 	
 func _physics_process(delta):
-	
-	# Add the gravity.
-	
-
-	# Handle jump.
-
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-
 	move_and_slide()
 	
 
@@ -54,9 +49,6 @@ func _update_rotation(rot_value : Vector3) -> void :
 
 func update_movement(_speed : float , _acceleration : float , Deacceleration :float ):
 	input_dir = Input.get_vector("left", "right", "forward", "baackward")
-	
-	
-	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = lerp(velocity.x , direction.x * _speed , _acceleration)
@@ -91,4 +83,5 @@ func dash(direction: Vector3, speed: float) -> void:
 	_direction.y = 0  
 	velocity = _direction * speed  
 
-	
+func freeze_player() ->void:
+	player_statemachine.on_change_state("FreezeState")

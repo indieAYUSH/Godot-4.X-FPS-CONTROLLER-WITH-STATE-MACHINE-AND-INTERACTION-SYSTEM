@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1pr6yvtybith"
-path.s3tc="res://.godot/imported/greybox_red_grid.png-02b7c28d83d77b368bc758fa73b9187a.s3tc.ctex"
+path.s3tc="res://.godot/imported/greybox_red_grid.png-83ceede347387804f234a215057bfd53.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Demo/materials and textures/GreyboxTextures/greybox_red_grid.png"
-dest_files=["res://.godot/imported/greybox_red_grid.png-02b7c28d83d77b368bc758fa73b9187a.s3tc.ctex"]
+source_file="res://addons/Demo/materials and textures/GreyboxTextures/greybox_red_grid.png"
+dest_files=["res://.godot/imported/greybox_red_grid.png-83ceede347387804f234a215057bfd53.s3tc.ctex"]
 
 [params]
 
