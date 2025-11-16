@@ -1,9 +1,10 @@
-[gd_scene load_steps=36 format=3 uid="uid://5ym40qt2aau8"]
+[gd_scene load_steps=37 format=3 uid="uid://5ym40qt2aau8"]
 
 [ext_resource type="Script" uid="uid://bcqieithuf66l" path="res://addons/player/scripts/player.gd" id="1_qvlqn"]
 [ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://addons/player/scripts/Components/camera_controller_component.gd" id="2_8p4p3"]
 [ext_resource type="Script" uid="uid://bmpd60tvtu81a" path="res://addons/player/scripts/Components/mouse_controller_component.gd" id="3_4eyqk"]
 [ext_resource type="Script" uid="uid://c8jv7ncgkeitl" path="res://addons/player/scripts/camera_juice.gd" id="3_iqofo"]
+[ext_resource type="Script" uid="uid://bocojh660kqy7" path="res://addons/player/scripts/item_holder.gd" id="4_1vt7l"]
 [ext_resource type="Script" uid="uid://2ykdhxibejv1" path="res://addons/StateMachine/StateMachine.gd" id="4_gp3q6"]
 [ext_resource type="Script" uid="uid://drihlu2omkt26" path="res://addons/player/states/IdleState.gd" id="5_tblmv"]
 [ext_resource type="Script" uid="uid://c2wa73ft7dn5e" path="res://addons/player/scripts/Components/interraction_ray_cast.gd" id="5_vd5ca"]
@@ -345,6 +346,9 @@ unique_name_in_owner = true
 [node name="Interraction_Ray_cast" type="RayCast3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D"]
 target_position = Vector3(0, 0, -3)
 collide_with_areas = true
+
+[node name="item_holder" type="Node3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D"]
+script = ExtResource("4_1vt7l")
 
 [node name="obstacle_checker" type="Node3D" parent="head/CameraControllerComponent"]
 

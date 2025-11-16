@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HoldAbleItemResource" load_steps=3 format=3 uid="uid://cws8guhhw2tdf"]
+
+[ext_resource type="PackedScene" uid="uid://bcrkdgvultva8" path="res://addons/HoldAble Items/Scenes/HoldAbleBoneFire.tscn" id="1_gjyvd"]
+[ext_resource type="Script" uid="uid://dw5e8icam16sr" path="res://addons/HoldAble Items/Scripts/HoldableItemResource.gd" id="1_hlmi1"]
+
+[resource]
+script = ExtResource("1_hlmi1")
+name = "BoneFire"
+scene = ExtResource("1_gjyvd")
+metadata/_custom_type_script = "uid://dw5e8icam16sr"

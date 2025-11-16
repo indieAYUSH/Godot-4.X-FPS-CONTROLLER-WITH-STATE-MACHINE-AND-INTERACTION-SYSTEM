@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcrkdgvultva8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8qdl"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.12156863, 0, 0.019607844, 1)
+roughness = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_05q8g"]
+material = SubResource("StandardMaterial3D_t8qdl")
+top_radius = 0.07
+bottom_radius = 0.05
+height = 0.7
+
+[node name="BoneFire" type="MeshInstance3D"]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_05q8g")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43983096, 0.04144734)
+light_color = Color(1, 0.5803922, 0.23137255, 1)
+light_energy = 3.0
+omni_range = 8.0

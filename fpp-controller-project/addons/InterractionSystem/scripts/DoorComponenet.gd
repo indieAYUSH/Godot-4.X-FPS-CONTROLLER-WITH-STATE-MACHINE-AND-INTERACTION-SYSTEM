@@ -43,5 +43,7 @@ func unlock_door() -> void: # U can replace this later with ur inventory code
 		warning = "Door Unlocked Sucessfully!!!"
 		MessageBus.warningContextMenu.emit(warning)
 		input_prompt_override = Locked_Input_Prompt
+		Interaction_Component.input_prompt = input_prompt_override
+		MessageBus.UpdateContextMenu.emit(Interaction_Component.override ,Interaction_Component.input_icon , Interaction_Component.input_prompt)
 	else :
 		MessageBus.warningContextMenu.emit(warning)
