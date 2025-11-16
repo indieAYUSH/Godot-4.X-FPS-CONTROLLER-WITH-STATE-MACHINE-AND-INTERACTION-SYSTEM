@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://5ym40qt2aau8"]
+[gd_scene load_steps=36 format=3 uid="uid://5ym40qt2aau8"]
 
 [ext_resource type="Script" uid="uid://bcqieithuf66l" path="res://addons/player/scripts/player.gd" id="1_qvlqn"]
 [ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://addons/player/scripts/Components/camera_controller_component.gd" id="2_8p4p3"]
@@ -215,6 +215,95 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_xsu4s"]
 font = ExtResource("17_xkm3v")
 
+[sub_resource type="Animation" id="Animation_kvncf"]
+resource_name = "warning"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("warning:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("warning:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("warning:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(817, 284), Vector2(825, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_1vt7l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("warning:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("warning:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("warning:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(817, 284)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vt7l"]
+_data = {
+&"RESET": SubResource("Animation_1vt7l"),
+&"warning": SubResource("Animation_kvncf")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_kvncf"]
+font = ExtResource("17_xkm3v")
+font_size = 20
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mbkfo"]
 height = 1.7
 
@@ -255,6 +344,7 @@ unique_name_in_owner = true
 
 [node name="Interraction_Ray_cast" type="RayCast3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D"]
 target_position = Vector3(0, 0, -3)
+collide_with_areas = true
 
 [node name="obstacle_checker" type="Node3D" parent="head/CameraControllerComponent"]
 
@@ -434,7 +524,7 @@ width = 3.0
 points = PackedVector2Array(0, 5, 0, 15)
 width = 3.0
 
-[node name="ContextComponent" type="CenterContainer" parent="UI" node_paths=PackedStringArray("input_promt_icon", "input_prompt")]
+[node name="ContextComponent" type="CenterContainer" parent="UI" node_paths=PackedStringArray("input_promt_icon", "input_prompt", "warning_reffrence", "UIAnimationPlayer")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.010416667
@@ -447,6 +537,8 @@ script = ExtResource("15_gn08s")
 input_promt_icon = NodePath("HBoxContainer/InputTex")
 input_prompt = NodePath("HBoxContainer/InputPrompt")
 default_icon = ExtResource("16_v58eg")
+warning_reffrence = NodePath("../warning")
+UIAnimationPlayer = NodePath("../UiAnimations")
 metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/ContextComponent"]
@@ -464,6 +556,20 @@ layout_mode = 2
 text = "THIS IA A BOX HEEH"
 label_settings = SubResource("LabelSettings_xsu4s")
 horizontal_alignment = 2
+
+[node name="UiAnimations" type="AnimationPlayer" parent="UI"]
+libraries = {
+&"": SubResource("AnimationLibrary_1vt7l")
+}
+
+[node name="warning" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 817.0
+offset_top = 284.0
+offset_right = 964.0
+offset_bottom = 308.0004
+text = "this is a warning"
+label_settings = SubResource("LabelSettings_kvncf")
 
 [node name="TimersHolderComponent" type="Node3D" parent="."]
 

@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkcom7pt1wpk3"]
+
+[ext_resource type="Script" uid="uid://bq3arigkt6lbe" path="res://addons/Demo/area_3d.gd" id="1_nlt37"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://addons/InterractionSystem/scripts/InteractionComponent.gd" id="2_l7dvb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ope4"]
+size = Vector3(0.7, 0.7, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p0svc"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 0.45882353, 0.42352942, 1)
+roughness = 0.24
+
+[sub_resource type="BoxMesh" id="BoxMesh_d1q2g"]
+material = SubResource("StandardMaterial3D_p0svc")
+size = Vector3(0.7, 0.7, 0.7)
+
+[node name="key_demo" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("1_nlt37")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_7ope4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+mesh = SubResource("BoxMesh_d1q2g")
+
+[node name="InteractionComponent" type="Node" parent="Area3D"]
+script = ExtResource("2_l7dvb")
+input_prompt = "Door Key"
+metadata/_custom_type_script = "uid://pdgu0t75jx23"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bou00x630601y"]
+[gd_scene load_steps=31 format=3 uid="uid://bou00x630601y"]
 
 [ext_resource type="Material" uid="uid://jm4tiq4lln34" path="res://addons/Demo/materials and textures/black.tres" id="1_p8l25"]
 [ext_resource type="PackedScene" uid="uid://5ym40qt2aau8" path="res://addons/player/scene/player.tscn" id="1_psk1g"]
@@ -10,8 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://c3gnyoimc7oui" path="res://Assests/keyboard_e_outline.svg" id="8_ik3e0"]
 [ext_resource type="PackedScene" uid="uid://bppp0u74sbhsk" path="res://addons/Demo/enviroment_object/rotating_doors.tscn" id="9_shq4a"]
 [ext_resource type="PackedScene" uid="uid://bndf836cxq3jw" path="res://addons/Demo/enviroment_object/ball.tscn" id="10_ty24u"]
+[ext_resource type="PackedScene" uid="uid://d0x1abyljxyoy" path="res://addons/Demo/enviroment_object/locked_sliding_door.tscn" id="10_wnl5g"]
 [ext_resource type="PackedScene" uid="uid://j082prroqfpj" path="res://addons/Demo/rigid_boxes.tscn" id="11_jipm5"]
 [ext_resource type="PackedScene" uid="uid://byb78iggbxjwv" path="res://addons/Demo/enviroment_object/sliding_doors.tscn" id="12_jipm5"]
+[ext_resource type="PackedScene" uid="uid://bkcom7pt1wpk3" path="res://addons/Demo/enviroment_object/key_demo.tscn" id="14_71soq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_psk1g"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -235,6 +237,12 @@ metadata/_custom_type_script = "uid://pdgu0t75jx23"
 [node name="Rotating_Doors" parent="props_boxes/StaticBody3D3" instance=ExtResource("9_shq4a")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4.8363686, 0.47684002, 13.505562)
 
+[node name="Rotating_Doors2" parent="props_boxes/StaticBody3D3" instance=ExtResource("9_shq4a")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -6.585865, 0.47684002, 13.505562)
+
+[node name="SlidingDoors" parent="props_boxes/StaticBody3D3" instance=ExtResource("10_wnl5g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.382385, 0.44256067, 18.462002)
+
 [node name="Ball" parent="props_boxes" instance=ExtResource("10_ty24u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5433328, 0)
 
@@ -255,3 +263,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.034122, 0, 22.332287)
 
 [node name="SlidingDoors" parent="Map" instance=ExtResource("12_jipm5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48313665, 0)
+
+[node name="key_demo" parent="." instance=ExtResource("14_71soq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.364191, 0.8268391, 13.680412)

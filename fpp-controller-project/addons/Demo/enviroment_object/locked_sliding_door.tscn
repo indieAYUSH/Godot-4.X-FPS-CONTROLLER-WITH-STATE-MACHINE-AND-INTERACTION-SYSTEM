@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://byb78iggbxjwv"]
+[gd_scene load_steps=15 format=3 uid="uid://d0x1abyljxyoy"]
 
-[ext_resource type="PackedScene" uid="uid://bmt3rgiwwe4ea" path="res://addons/Demo/enviroment_object/door_wall.tscn" id="1_kdmnj"]
-[ext_resource type="Script" uid="uid://de4h7qj4u7jy3" path="res://addons/Demo/enviroment_object/scripts/AnimatableDoors.gd" id="2_kdmnj"]
-[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://addons/InterractionSystem/scripts/InteractionComponent.gd" id="3_y7mby"]
-[ext_resource type="Script" uid="uid://d0bdsxl84aamu" path="res://addons/InterractionSystem/scripts/DoorComponenet.gd" id="4_7liqy"]
+[ext_resource type="PackedScene" uid="uid://bmt3rgiwwe4ea" path="res://addons/Demo/enviroment_object/door_wall.tscn" id="1_vadfp"]
+[ext_resource type="Script" uid="uid://de4h7qj4u7jy3" path="res://addons/Demo/enviroment_object/scripts/AnimatableDoors.gd" id="2_dp0r7"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://addons/InterractionSystem/scripts/InteractionComponent.gd" id="3_vc6oc"]
+[ext_resource type="Script" uid="uid://d0bdsxl84aamu" path="res://addons/InterractionSystem/scripts/DoorComponenet.gd" id="4_1h5ap"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xoeue"]
 size = Vector3(2.1, 3, 0.12)
@@ -98,22 +98,35 @@ _data = {
 &"open": SubResource("Animation_rwa2i")
 }
 
+[sub_resource type="Gradient" id="Gradient_vadfp"]
+offsets = PackedFloat32Array(0, 0.47540984)
+colors = PackedColorArray(1, 0.34509805, 0, 1, 1, 1, 0.105882354, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dp0r7"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vc6oc"]
+noise = SubResource("FastNoiseLite_dp0r7")
+color_ramp = SubResource("Gradient_vadfp")
+seamless = true
+seamless_blend_skirt = 1.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdmnj"]
 diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(1, 0.7254902, 0, 1)
+albedo_texture = SubResource("NoiseTexture2D_vc6oc")
 
-[sub_resource type="BoxMesh" id="BoxMesh_kdmnj"]
+[sub_resource type="BoxMesh" id="BoxMesh_1h5ap"]
 material = SubResource("StandardMaterial3D_kdmnj")
 size = Vector3(2.05, 3, 0.105)
 
 [node name="SlidingDoors" type="Node3D"]
 
-[node name="DoorWall" parent="." instance=ExtResource("1_kdmnj")]
+[node name="DoorWall" parent="." instance=ExtResource("1_vadfp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="AnimatableBody3D" type="AnimatableBody3D" parent="." node_paths=PackedStringArray("doorcomponent")]
-script = ExtResource("2_kdmnj")
+script = ExtResource("2_dp0r7")
 doorcomponent = NodePath("DoorComponent")
 Automatic_Closing = true
 metadata/_custom_type_script = "uid://de4h7qj4u7jy3"
@@ -128,16 +141,18 @@ libraries = {
 }
 
 [node name="InteractionComponent" type="Node" parent="AnimatableBody3D"]
-script = ExtResource("3_y7mby")
+script = ExtResource("3_vc6oc")
 input_prompt = "Open Door"
 metadata/_custom_type_script = "uid://pdgu0t75jx23"
 
-[node name="DoorComponent" type="Node" parent="AnimatableBody3D"]
-script = ExtResource("4_7liqy")
+[node name="DoorComponent" type="Node" parent="AnimatableBody3D" node_paths=PackedStringArray("Interaction_Component")]
+script = ExtResource("4_1h5ap")
 input_prompt_override = "open"
+locked = true
+Interaction_Component = NodePath("../InteractionComponent")
 metadata/_custom_type_script = "uid://d0bdsxl84aamu"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-mesh = SubResource("BoxMesh_kdmnj")
+mesh = SubResource("BoxMesh_1h5ap")
 skeleton = NodePath("../CollisionShape3D")

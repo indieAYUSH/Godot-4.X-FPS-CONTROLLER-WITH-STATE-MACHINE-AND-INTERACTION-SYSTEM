@@ -25,6 +25,8 @@ var input_dir
 var freezed : bool = false
 @onready var camera_3d = %Camera3D
 
+var door_key  : bool = false
+
 #Signals
 signal unfreezeplayer
 
