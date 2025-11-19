@@ -15,6 +15,7 @@ const JUMP_VELOCITY = 4.5
 @export var player_statemachine : StateMachine
 @export var CameraJuice_Component : CameraJuiceComponent
 @export var state_ref : State
+@export var itme_holdable : item_holder
 
 @export_category("Movement Bools")
 @export var can_dash : bool = true

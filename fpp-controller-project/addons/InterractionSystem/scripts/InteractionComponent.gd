@@ -22,12 +22,10 @@ func _ready():
 	_get_mesh()
 
 func in_range():
-	print("focused")
 	mesh.material_overlay = INTERRACTION_HIGHLIGHT
 	MessageBus.UpdateContextMenu.emit(override , input_icon , input_prompt)
 
 func not_in_range():
-	print("unfocused")
 	mesh.material_overlay = null
 	MessageBus.ResetContextMenu.emit()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://5ym40qt2aau8"]
+[gd_scene load_steps=40 format=3 uid="uid://5ym40qt2aau8"]
 
 [ext_resource type="Script" uid="uid://bcqieithuf66l" path="res://addons/player/scripts/player.gd" id="1_qvlqn"]
 [ext_resource type="Script" uid="uid://boivvjeleq8ja" path="res://addons/player/scripts/Components/camera_controller_component.gd" id="2_8p4p3"]
@@ -6,8 +6,11 @@
 [ext_resource type="Script" uid="uid://c8jv7ncgkeitl" path="res://addons/player/scripts/camera_juice.gd" id="3_iqofo"]
 [ext_resource type="Script" uid="uid://bocojh660kqy7" path="res://addons/player/scripts/item_holder.gd" id="4_1vt7l"]
 [ext_resource type="Script" uid="uid://2ykdhxibejv1" path="res://addons/StateMachine/StateMachine.gd" id="4_gp3q6"]
+[ext_resource type="Texture2D" uid="uid://ct77gitqhfr0e" path="res://Assests/mouse_right.svg" id="5_44c10"]
+[ext_resource type="Script" uid="uid://dw5e8icam16sr" path="res://addons/HoldAble Items/Scripts/HoldableItemResource.gd" id="5_t4wwt"]
 [ext_resource type="Script" uid="uid://drihlu2omkt26" path="res://addons/player/states/IdleState.gd" id="5_tblmv"]
 [ext_resource type="Script" uid="uid://c2wa73ft7dn5e" path="res://addons/player/scripts/Components/interraction_ray_cast.gd" id="5_vd5ca"]
+[ext_resource type="Resource" uid="uid://cws8guhhw2tdf" path="res://addons/HoldAble Items/Resorces/BoneFire.tres" id="5_ygc1f"]
 [ext_resource type="Script" uid="uid://lvw0vibdw22k" path="res://addons/player/states/walk_state.gd" id="6_tblmv"]
 [ext_resource type="Script" uid="uid://dbavcwgvqyiyg" path="res://addons/player/states/sprint_state.gd" id="7_263ev"]
 [ext_resource type="Script" uid="uid://b2ooi5fi6jx7j" path="res://addons/Other scripts/UI/debug_ui.gd" id="7_tblmv"]
@@ -216,6 +219,45 @@ _data = {
 [sub_resource type="LabelSettings" id="LabelSettings_xsu4s"]
 font = ExtResource("17_xkm3v")
 
+[sub_resource type="Animation" id="Animation_1vt7l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("warning:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("warning:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("warning:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(817, 284)]
+}
+
 [sub_resource type="Animation" id="Animation_kvncf"]
 resource_name = "warning"
 length = 1.3
@@ -256,45 +298,6 @@ tracks/2/keys = {
 "values": [Vector2(817, 284), Vector2(825, 100)]
 }
 
-[sub_resource type="Animation" id="Animation_1vt7l"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("warning:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("warning:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("warning:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(817, 284)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1vt7l"]
 _data = {
 &"RESET": SubResource("Animation_1vt7l"),
@@ -311,10 +314,11 @@ height = 1.7
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qvlqn"]
 height = 1.1
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component", "itme_holdable")]
 script = ExtResource("1_qvlqn")
 player_statemachine = NodePath("PlayerStateMachine")
 CameraJuice_Component = NodePath("head/CameraControllerComponent/CameraJuice")
+itme_holdable = NodePath("head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D/item_holder")
 
 [node name="head" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -349,6 +353,10 @@ collide_with_areas = true
 
 [node name="item_holder" type="Node3D" parent="head/CameraControllerComponent/CameraJuice/rot_pivot/Camera3D"]
 script = ExtResource("4_1vt7l")
+context_override = true
+input_prompt_override = "Drop"
+input_icon = ExtResource("5_44c10")
+item_resource = Array[ExtResource("5_t4wwt")]([ExtResource("5_ygc1f")])
 
 [node name="obstacle_checker" type="Node3D" parent="head/CameraControllerComponent"]
 
@@ -358,6 +366,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0815711, 0)
 shape = SubResource("SphereShape3D_hu6bb")
 target_position = Vector3(0, 0, 0)
 debug_shape_custom_color = Color(0, 1, 0, 1)
+
+[node name="pos_place_holder" type="Node3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.6431665)
+
+[node name="pos_place_holder2" type="Node3D" parent="head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.55368423)
 
 [node name="Components" type="Node" parent="."]
 

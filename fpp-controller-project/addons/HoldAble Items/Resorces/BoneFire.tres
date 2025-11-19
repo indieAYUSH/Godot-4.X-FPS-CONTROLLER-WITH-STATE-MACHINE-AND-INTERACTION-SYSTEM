@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="HoldAbleItemResource" load_steps=3 format=3 uid="uid://cws8guhhw2tdf"]
+[gd_resource type="Resource" script_class="HoldAbleItemResource" load_steps=4 format=3 uid="uid://cws8guhhw2tdf"]
 
+[ext_resource type="PackedScene" uid="uid://cfhvg3egynyxx" path="res://addons/Demo/enviroment_object/bone_fire.tscn" id="1_7id6t"]
 [ext_resource type="PackedScene" uid="uid://bcrkdgvultva8" path="res://addons/HoldAble Items/Scenes/HoldAbleBoneFire.tscn" id="1_gjyvd"]
 [ext_resource type="Script" uid="uid://dw5e8icam16sr" path="res://addons/HoldAble Items/Scripts/HoldableItemResource.gd" id="1_hlmi1"]
 
@@ -7,4 +8,6 @@
 script = ExtResource("1_hlmi1")
 name = "BoneFire"
 scene = ExtResource("1_gjyvd")
+position = Vector3(1.255, -0.51, -2.75)
+Droppable_scene = ExtResource("1_7id6t")
 metadata/_custom_type_script = "uid://dw5e8icam16sr"

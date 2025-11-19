@@ -5,6 +5,10 @@ diffuse_mode = 3
 specular_mode = 1
 albedo_color = Color(0.12156863, 0, 0.019607844, 1)
 roughness = 0.0
+use_z_clip_scale = true
+z_clip_scale = 0.5
+use_fov_override = true
+fov_override = 40.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_05q8g"]
 material = SubResource("StandardMaterial3D_t8qdl")
@@ -18,7 +22,8 @@ mesh = SubResource("CylinderMesh_05q8g")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43983096, 0.04144734)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5044786, 0.04144734)
 light_color = Color(1, 0.5803922, 0.23137255, 1)
-light_energy = 3.0
-omni_range = 8.0
+light_energy = 2.5
+shadow_enabled = true
+omni_range = 10.0

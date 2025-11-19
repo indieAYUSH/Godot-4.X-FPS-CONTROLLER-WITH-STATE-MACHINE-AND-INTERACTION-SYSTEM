@@ -1,16 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfhvg3egynyxx"]
+[gd_scene load_steps=7 format=3 uid="uid://cfhvg3egynyxx"]
 
-[ext_resource type="PackedScene" uid="uid://bcrkdgvultva8" path="res://addons/HoldAble Items/Scenes/HoldAbleBoneFire.tscn" id="1_t8qdl"]
+[ext_resource type="Script" uid="uid://4sybcscsli6i" path="res://addons/HoldAble Items/Scripts/HoldAbleItem.gd" id="2_kanya"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t8qdl"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_tud4k"]
 height = 0.7
 radius = 0.07
 
-[node name="BoneFire" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kanya"]
+height = 0.8
+radius = 0.14
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t8qdl"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.12156863, 0, 0.019607844, 1)
+roughness = 0.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_05q8g"]
+material = SubResource("StandardMaterial3D_t8qdl")
+top_radius = 0.07
+bottom_radius = 0.05
+height = 0.7
+
+[node name="BoneFire" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_t8qdl")
+linear_damp = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_tud4k")
 
-[node name="MeshInstance3D" parent="RigidBody3D" instance=ExtResource("1_t8qdl")]
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_kanya")
+
+[node name="HoldAbleItem" type="Node" parent="Area3D"]
+script = ExtResource("2_kanya")
+item_name = "BoneFire"
+input_prompt = "BoneFire"
+metadata/_custom_type_script = "uid://4sybcscsli6i"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_05q8g")
+skeleton = NodePath("../../CollisionShape3D")
+
+[node name="BoneFire" type="Node3D" parent="."]
