@@ -12,6 +12,9 @@ class_name PlayerController  extends CharacterBody3D
 @onready var lobschecker: ShapeCast3D = %Lobschecker
 @onready var r_obscheckr: ShapeCast3D = %RObscheckr
 @onready var free_look_pivot: Node3D = %FreeLookPivot
+@onready var wall_cast: ShapeCast3D = %wall_cast
+
+
 
 @export_category("Component Refrences")
 @export var player_statemachine : StateMachine
@@ -33,7 +36,7 @@ class_name PlayerController  extends CharacterBody3D
 @export var wall_push_force : float = 4.5
 @export var max_wall_jump : float = 2.0
 @export var wall_jump_retention : float = 1.0
-@export var wall_run_velocity_threshold : float = 9.0
+@export var wall_run_velocity_threshold : float = 7.5
 @export var wall_run_accel : float = 14.0
 @export var wall_run_deaccel : float = 10.0
 
@@ -47,7 +50,7 @@ class_name PlayerController  extends CharacterBody3D
 @export_group("air movment var")
 @export var max_air_accel : float = 800.0
 @export var max_air_speed : float = 500.0
-@export var air_cap : float = 0.9
+@export var air_cap : float = 3.0
 
 @export_group("vaulting and mantling")
 @export var vault_time : float = 0.4
@@ -82,6 +85,7 @@ func _ready():
 	obstacle_checker.add_exception(self)
 	lobschecker.add_exception(self)
 	r_obscheckr.add_exception(self)
+	wall_cast.add_exception(self)
 	Global.Player = self
 	current_coyote_time = coyote_time
 
@@ -230,12 +234,10 @@ func freeze_player() ->void:
 
 
 func valid_wall_run()->bool:
-	if is_on_wall() and velocity.y < 1.0 and Input.is_action_pressed("forward") and velocity.length()>wall_run_velocity_threshold:
-		for i in get_slide_collision_count():
-			var collision_surface = get_slide_collision(i)
-			var collision_normal = collision_surface.get_normal()
-			var dir_dot = -current_movement_direction.dot(collision_normal)
-			if abs(dir_dot) > 0.05 and abs(dir_dot) < 0.85:
+	if on_wall() and velocity.y < 1.0 and Input.is_action_pressed("forward") and velocity.length()>wall_run_velocity_threshold:
+		var collision_normal = wall_cast.get_collision_normal(0)
+		var dir_dot = -current_movement_direction.dot(collision_normal)
+		if abs(dir_dot) > 0.05 and abs(dir_dot) < 0.9:
 				return true 
 	return false
 
@@ -248,3 +250,13 @@ func _vault_breeze(t : float , start_point : Vector3 , mid_point : Vector3 , end
 func _process(delta: float) -> void:
 	if !is_on_floor():
 		current_coyote_time -= delta
+	elif current_coyote_time != coyote_time:
+		current_coyote_time = coyote_time
+
+
+func on_wall() ->bool:
+	if wall_cast.is_colliding():
+		var collision_normal = wall_cast.get_collision_normal(0)
+		if abs(collision_normal.y) < 0.2 and (abs(collision_normal.x) > 0.85 or abs(collision_normal.z) > 0.85 ):
+			return true
+	return false

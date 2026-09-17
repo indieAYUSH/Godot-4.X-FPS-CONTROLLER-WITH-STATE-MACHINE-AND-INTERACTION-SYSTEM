@@ -11,7 +11,7 @@ func enter()->void:
 	var forw = -Player.global_transform.basis.z
 	var destination  = ledge_p + (forw *1.3)
 	var start_p = Player.global_position
-	var mid = start_p.lerp(destination , 0.45)  + Vector3(0.0 , 0.5 , 0.0)
+	var mid = start_p.lerp(destination , 0.45)  + Vector3(0.0 , 0.3 , 0.0)
 	var end = destination + Vector3(0.0 , 0.54 , 0.0)
 	var tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_OUT)

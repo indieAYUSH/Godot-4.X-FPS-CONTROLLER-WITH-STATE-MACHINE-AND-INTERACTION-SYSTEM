@@ -328,7 +328,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.06666667, 0.2, 0.3067, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.034906585, 0, -0.008726646), Vector3(0.13962634, 0, -0.10471976), Vector3(0.12217305, 0, -0.15707964), Vector3(0.20071286, 0, -0.0418879), Vector3(0, 0, 0)]
+"values": [Vector3(0.034906585, 0, -0.008726646), Vector3(-0.42760566, 0, -0.06981317), Vector3(-0.28797933, 0, -0.15707964), Vector3(-0.20071286, 0, -0.0418879), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -556,6 +556,9 @@ shader_parameter/zoom = 120.0
 shader_parameter/pDir = false
 shader_parameter/noWrap = true
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_pvxpe"]
+radius = 0.65
+
 [node name="Player" type="CharacterBody3D" unique_id=924331116 node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component", "itme_holdable", "audio_manager", "camera_controller", "stepper_component", "ray_cast_component", "vaulter")]
 collision_mask = 3
 script = ExtResource("1_qvlqn")
@@ -566,13 +569,12 @@ audio_manager = NodePath("AudioManager")
 camera_controller = NodePath("head/FreeLookPivot/CameraControllerComponent")
 stepper_component = NodePath("Components/StepperComponent")
 ray_cast_component = NodePath("Components/RaycastComponent")
-air_resistance = 0.05
+air_resistance = 0.08
 wall_push_force = 8.0
-wall_run_velocity_threshold = 7.0
 wall_run_accel = 5.17
 wall_run_deaccel = 3.905
 ground_deaacel = 3.5
-air_cap = 1.285
+air_cap = 1.0
 vaulter = NodePath("head/vaulter")
 
 [node name="head" type="Node3D" parent="." unique_id=194443698]
@@ -602,8 +604,6 @@ Head_bob = true
 camer_fov_changes = true
 Player = NodePath("../../../..")
 lerp_speed = 12.0
-bob_frequency = 2.1
-bob_amplitude = 0.045
 left_collision_checker = NodePath("../obstacle_checker/LnRcollision/Lobschecker")
 right_collision_checker = NodePath("../obstacle_checker/LnRcollision/RObscheckr")
 base_fov = 90.0
@@ -1027,6 +1027,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="wall_cast" type="ShapeCast3D" parent="." unique_id=379109841]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7251649, 0)
+shape = SubResource("SphereShape3D_pvxpe")
+target_position = Vector3(0, 0, 0)
 
 [connection signal="state_changed" from="PlayerStateMachine" to="Debug_ui" method="_on_player_state_machine_state_changed"]
 [connection signal="timeout" from="TimersHolderComponent/DashCoolDown" to="PlayerStateMachine/DashState" method="_on_dash_cool_down_timeout"]

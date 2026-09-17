@@ -95,8 +95,8 @@ func _physics_process(delta: float) -> void:
 	var surface_collider
 	if surface_checker_cast.is_colliding():
 		surface_collider = surface_checker_cast.get_collider()
-	elif player_controller.is_on_wall():
-		surface_collider = player_controller.get_last_slide_collision().get_collider()
+	elif player_controller.on_wall():
+		surface_collider = player_controller.wall_cast.get_collider(0)
 	if !surface_collider: 
 		return
 	var surface_group = surface_collider.get_groups()

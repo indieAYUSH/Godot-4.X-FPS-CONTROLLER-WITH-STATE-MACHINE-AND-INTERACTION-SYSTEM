@@ -28,12 +28,12 @@ func enter()->void:
 func physics_update(delta : float)-> void:
 	Player.update_gravity(delta , gravity_multiplier)
 	
-	var wall_collision = Player.get_last_slide_collision()
+	var wall_collision = Player.wall_cast.get_collider(0)
 	if wall_collision == null: 
 		change_state.emit("FallingState")
 		return
 	
-	var wall_normal = wall_collision.get_normal()
+	var wall_normal = Player.wall_cast.get_collision_normal(0)
 	
 	if abs(wall_normal.y)>0.2:
 		change_state.emit("FallingState")
@@ -44,7 +44,7 @@ func physics_update(delta : float)-> void:
 	
 	Player.wall_run(wall_normal , speed , acceleration , delta)
 	
-	if !Player.is_on_wall():
+	if !Player.on_wall():
 		change_state.emit("FallingState")
 		return
 	

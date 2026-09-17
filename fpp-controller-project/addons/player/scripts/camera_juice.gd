@@ -22,10 +22,12 @@ class_name CameraJuiceComponent extends Node3D
 
 
 @export_category("Headbob Vars")
-@export var bob_frequency : float
-@export var bob_amplitude : float
+@export var bob_frequency : float = 30.0
+
+@export var bob_amplitude : float =  0.7
 
 
+ 
 
 @export_group("Collision checker")
 @export var left_collision_checker : ShapeCast3D
@@ -113,7 +115,7 @@ func head_bob_manager(speed : float , delta : float)->void:
 	var angles  = Vector3.ZERO
 	var offsets = Vector3.ZERO
 	var collider_value  = float(!left_collision_checker.is_colliding() and !right_collision_checker.is_colliding())
-	
+	var speed_ratio = clamp(speed/Player.max_speed , 0.0 , 1.0)
 	match current_camera_state:
 		CAMERA_STATE.default:
 			pass
@@ -122,8 +124,9 @@ func head_bob_manager(speed : float , delta : float)->void:
 		CAMERA_STATE.GROUND_MOVEMENT:
 			if Head_bob:
 				var bob_multiplier = float(Head_bob and Player.is_on_floor() and _can_headbob()) * collider_value
-				current_bob_frquency += bob_frequency*speed*delta
-				current_bob_amplitude = bob_amplitude*speed
+				current_bob_frquency += bob_frequency*speed_ratio*delta
+				current_bob_amplitude = bob_amplitude*speed_ratio
+				
 				bob_offset_vector.x = (sin(current_bob_frquency/2.0)*current_bob_amplitude+0.2)*bob_multiplier
 				bob_offset_vector.y = (sin(current_bob_frquency)*current_bob_amplitude - 0.02)*bob_multiplier
 				current_roll = ((sin(current_bob_frquency)*current_bob_amplitude)/2.65)*bob_multiplier
@@ -135,11 +138,11 @@ func head_bob_manager(speed : float , delta : float)->void:
 		CAMERA_STATE.WALL_RUN:
 			if Head_bob:
 				var bob_multiplier = float(Head_bob and Player.is_on_wall() and _can_headbob()) * collider_value
-				current_bob_frquency += bob_frequency*speed*delta
-				current_bob_amplitude = bob_amplitude*speed
+				current_bob_frquency += bob_frequency*speed_ratio*delta
+				current_bob_amplitude = bob_amplitude*speed_ratio
 				bob_offset_vector.y = (sin(current_bob_frquency)*current_bob_amplitude - 0.02)*bob_multiplier
 				current_roll = ((sin(current_bob_frquency)*current_bob_amplitude))*bob_multiplier
-				angles.z  = lerp(angles.z , deg_to_rad(current_roll)*2.5 , delta*lerp_speed)
+				angles.z  = lerp(angles.z , deg_to_rad(current_roll)*3.5 , delta*lerp_speed)
 				
 			
 	bob_head.rotation = angles

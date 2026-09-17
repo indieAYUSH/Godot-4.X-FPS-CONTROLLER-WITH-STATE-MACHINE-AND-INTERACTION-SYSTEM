@@ -24,6 +24,10 @@ config/icon="res://icon.svg"
 MessageBus="*res://addons/Other scripts/AutoLoads/Message_BUS.gd"
 Global="*res://addons/Other scripts/AutoLoads/Global.gd"
 
+[dotnet]
+
+project/assembly_name="( FSM)  FPP controller v2"
+
 [global_group]
 
 water=""
