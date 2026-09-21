@@ -39,7 +39,8 @@ func _physics_process(delta):
 func interact() -> void:
 	if active_object and active_object.has_user_signal("interacted"):
 		active_object.emit_signal("interacted" , parent)
-		return
+	
+	
 	if interaction_cast_result and interaction_cast_result.has_user_signal("interacted"):
 		interaction_cast_result.emit_signal("interacted" , parent)
 

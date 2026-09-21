@@ -11,7 +11,7 @@ var object_mass : float
 @export var max_obj_mass_threshold : float = 20.0
 @export var object_rotation_senstivity : float = 0.25
 
-@export var damping_strength : float = 23.0
+@export var damping_strength : float = 22.0
 @export var pickup_strength : float = 120.0
 @export var max_linear_vel_threshold : float = 16.0
 @export var drop_distance_threshold : float = 3.5
