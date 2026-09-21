@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://bndf836cxq3jw"]
 
 [ext_resource type="Material" uid="uid://c3gt017mgxqdo" path="res://addons/Demo/materials and textures/orange.tres" id="1_xtadk"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://addons/InterractionSystem/scripts/InteractionComponent.gd" id="2_e6rvt"]
+[ext_resource type="Script" uid="uid://b5c22i6g517pd" path="res://addons/InterractionSystem/scripts/pickup_component.gd" id="3_5v4rd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ty24u"]
 
@@ -8,10 +10,21 @@
 material = ExtResource("1_xtadk")
 
 [node name="Ball" type="RigidBody3D" unique_id=1303842726]
-collision_mask = 2
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+mass = 0.2
+lock_rotation = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=502020435]
 shape = SubResource("SphereShape3D_ty24u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1419673657]
 mesh = SubResource("SphereMesh_jipm5")
+
+[node name="InteractionComponent" type="Node" parent="." unique_id=1567895430]
+script = ExtResource("2_e6rvt")
+input_prompt = "PickUp"
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="PickupComponent" type="Node" parent="." unique_id=1032730031]
+script = ExtResource("3_5v4rd")
+metadata/_custom_type_script = "uid://b5c22i6g517pd"

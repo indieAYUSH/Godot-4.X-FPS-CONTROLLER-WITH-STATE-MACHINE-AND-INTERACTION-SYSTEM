@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://j082prroqfpj"]
 
 [ext_resource type="Material" uid="uid://c3gt017mgxqdo" path="res://addons/Demo/materials and textures/orange.tres" id="1_kbg81"]
+[ext_resource type="Script" uid="uid://pdgu0t75jx23" path="res://addons/InterractionSystem/scripts/InteractionComponent.gd" id="2_l5ggs"]
+[ext_resource type="Script" uid="uid://b5c22i6g517pd" path="res://addons/InterractionSystem/scripts/pickup_component.gd" id="3_kh5gw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0urgx"]
 size = Vector3(0.9, 0.9, 0.9)
@@ -10,10 +12,20 @@ material = ExtResource("1_kbg81")
 size = Vector3(0.9, 0.9, 0.9)
 
 [node name="RigidBoxes" type="RigidBody3D" unique_id=755011315]
-collision_mask = 2
+transform = Transform3D(1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
+mass = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=25358165]
 shape = SubResource("BoxShape3D_0urgx")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1533955922]
 mesh = SubResource("BoxMesh_d5eq7")
+
+[node name="InteractionComponent" type="Node" parent="." unique_id=2141728864]
+script = ExtResource("2_l5ggs")
+input_prompt = "PickUp"
+metadata/_custom_type_script = "uid://pdgu0t75jx23"
+
+[node name="PickupComponent" type="Node" parent="." unique_id=2008625453]
+script = ExtResource("3_kh5gw")
+metadata/_custom_type_script = "uid://b5c22i6g517pd"

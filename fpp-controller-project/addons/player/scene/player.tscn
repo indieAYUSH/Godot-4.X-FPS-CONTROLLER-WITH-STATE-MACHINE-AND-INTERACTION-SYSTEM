@@ -557,9 +557,9 @@ shader_parameter/pDir = false
 shader_parameter/noWrap = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pvxpe"]
-radius = 0.65
+radius = 0.68
 
-[node name="Player" type="CharacterBody3D" unique_id=924331116 node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component", "itme_holdable", "audio_manager", "camera_controller", "stepper_component", "ray_cast_component", "vaulter")]
+[node name="Player" type="CharacterBody3D" unique_id=924331116 node_paths=PackedStringArray("player_statemachine", "CameraJuice_Component", "itme_holdable", "audio_manager", "camera_controller", "stepper_component", "ray_cast_component", "interaction_controller_component", "vaulter")]
 collision_mask = 3
 script = ExtResource("1_qvlqn")
 player_statemachine = NodePath("PlayerStateMachine")
@@ -569,6 +569,7 @@ audio_manager = NodePath("AudioManager")
 camera_controller = NodePath("head/FreeLookPivot/CameraControllerComponent")
 stepper_component = NodePath("Components/StepperComponent")
 ray_cast_component = NodePath("Components/RaycastComponent")
+interaction_controller_component = NodePath("Components/InterractionControllerComponent")
 air_resistance = 0.08
 wall_push_force = 8.0
 wall_run_accel = 5.17
@@ -631,6 +632,9 @@ input_prompt_override = "Drop"
 input_icon = ExtResource("5_44c10")
 item_resource = Array[ExtResource("5_t4wwt")]([ExtResource("5_ygc1f")])
 
+[node name="obj_pickup_marker" type="Marker3D" parent="head/FreeLookPivot/CameraControllerComponent/CameraJuice/bob_head/rot_pivot/Camera3D" unique_id=949745670]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.6531944)
+
 [node name="obstacle_checker" type="Node3D" parent="head/FreeLookPivot/CameraControllerComponent" unique_id=646212523]
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="head/FreeLookPivot/CameraControllerComponent/obstacle_checker" unique_id=1691650619]
@@ -673,9 +677,10 @@ script = ExtResource("3_4eyqk")
 mouse_senstivity = 0.003
 camera_controller = NodePath("../../head/FreeLookPivot/CameraControllerComponent")
 
-[node name="PlayerInterractionRay" type="Node" parent="Components" unique_id=1938175511 node_paths=PackedStringArray("interaction_raycast")]
+[node name="InterractionControllerComponent" type="Node" parent="Components" unique_id=1938175511 node_paths=PackedStringArray("interaction_raycast", "obj_pickup_marker")]
 script = ExtResource("5_vd5ca")
 interaction_raycast = NodePath("../../head/FreeLookPivot/CameraControllerComponent/CameraJuice/bob_head/rot_pivot/Camera3D/Interraction_Ray_cast")
+obj_pickup_marker = NodePath("../../head/FreeLookPivot/CameraControllerComponent/CameraJuice/bob_head/rot_pivot/Camera3D/obj_pickup_marker")
 
 [node name="StepperComponent" type="Node" parent="Components" unique_id=696108460]
 script = ExtResource("10_alowi")
@@ -1030,9 +1035,10 @@ mouse_filter = 2
 
 [node name="wall_cast" type="ShapeCast3D" parent="." unique_id=379109841]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7251649, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6797776, 0)
 shape = SubResource("SphereShape3D_pvxpe")
 target_position = Vector3(0, 0, 0)
 
+[connection signal="set_active_object" from="Components/InterractionControllerComponent" to="Components/InterractionControllerComponent" method="_on_set_active_object"]
 [connection signal="state_changed" from="PlayerStateMachine" to="Debug_ui" method="_on_player_state_machine_state_changed"]
 [connection signal="timeout" from="TimersHolderComponent/DashCoolDown" to="PlayerStateMachine/DashState" method="_on_dash_cool_down_timeout"]

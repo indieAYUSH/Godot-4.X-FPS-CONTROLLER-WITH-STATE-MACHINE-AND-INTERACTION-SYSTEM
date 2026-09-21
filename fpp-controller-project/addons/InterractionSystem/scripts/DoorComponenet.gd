@@ -14,10 +14,13 @@ var is_open : bool
 
 func _ready():
 	parent = get_parent()
-	parent.connect("interacted" , door_func )
+	parent.connect("interacted" , _on_interacted )
 	if locked:
 		input_prompt_override = Locked_Input_Prompt
 		Interaction_Component.input_prompt = input_prompt_override
+
+func _on_interacted(interactor):
+	door_func()
 
 func door_func()->void:
 	if locked:

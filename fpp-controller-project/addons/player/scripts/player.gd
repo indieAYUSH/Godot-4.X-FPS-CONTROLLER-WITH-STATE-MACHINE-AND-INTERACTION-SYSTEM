@@ -25,6 +25,7 @@ class_name PlayerController  extends CharacterBody3D
 @export var camera_controller : CameraControllerComponent
 @export var stepper_component : StepperComponent
 @export var ray_cast_component : RaycastComponent
+@export var interaction_controller_component : InterractionController
 
 @export_category("Movement Bools")
 @export var can_dash : bool = true
