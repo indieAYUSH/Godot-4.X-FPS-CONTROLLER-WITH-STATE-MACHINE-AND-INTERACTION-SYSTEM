@@ -9,7 +9,7 @@ class_name InteractionComponent extends Node
 @export var mesh : MeshInstance3D
 
 
-var INTERRACTION_HIGHLIGHT = preload("uid://cn414auvdbt82")
+var INTERRACTION_HIGHLIGHT = preload("uid://bh0l5em0foa6e")
 
 
 var parent
@@ -24,12 +24,14 @@ func _ready():
 
 func in_range():
 	_in_range = true
-	#mesh.material_overlay = INTERRACTION_HIGHLIGHT
+	if mesh:
+		mesh.material_overlay = INTERRACTION_HIGHLIGHT
 	MessageBus.UpdateContextMenu.emit(override , input_icon , input_prompt)
 
 func not_in_range():
 	_in_range = false
-	#mesh.material_overlay = null
+	if mesh:
+		mesh.material_overlay = null
 	MessageBus.ResetContextMenu.emit()
 
 func on_interacted(interactor_node):

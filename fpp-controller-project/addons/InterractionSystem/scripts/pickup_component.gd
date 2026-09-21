@@ -47,7 +47,7 @@ func _on_interacted(_interactor : PlayerController)->void:     # rn for convinie
 	parent.emit_signal("set_input_prompt" , "Drop")
 
 func _drop():
-	parent.emit_signal("set_input_prompt" , "PickUp4")
+	parent.emit_signal("set_input_prompt" , "PickUp")
 	picked_up = false
 	parent.freeze = false
 	picked_up_pivot = null

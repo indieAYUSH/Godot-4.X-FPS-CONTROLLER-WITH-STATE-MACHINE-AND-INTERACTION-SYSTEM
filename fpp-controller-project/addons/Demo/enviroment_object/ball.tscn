@@ -20,9 +20,10 @@ shape = SubResource("SphereShape3D_ty24u")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=1419673657]
 mesh = SubResource("SphereMesh_jipm5")
 
-[node name="InteractionComponent" type="Node" parent="." unique_id=1567895430]
+[node name="InteractionComponent" type="Node" parent="." unique_id=1567895430 node_paths=PackedStringArray("mesh")]
 script = ExtResource("2_e6rvt")
 input_prompt = "PickUp"
+mesh = NodePath("../CollisionShape3D/MeshInstance3D")
 metadata/_custom_type_script = "uid://pdgu0t75jx23"
 
 [node name="PickupComponent" type="Node" parent="." unique_id=1032730031]
